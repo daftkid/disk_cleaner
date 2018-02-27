@@ -43,22 +43,22 @@ namespace disk_cleaner
 
         private void btn_disk_info_Click(object sender, EventArgs e)
         {
-            ShowMsgBox("Test message", "Choose disk");
+            ShowMsgBox("Please choose a disk for scanning.\nPlease note that there are specified only currently available disks in your system.", "Choose disk");
+        }
+
+        private void btn_names_info_Click(object sender, EventArgs e)
+        {
+            ShowMsgBox("Please provide names of files which should be searched.\nUse comma as a delimiter.", "File names");
+        }
+
+        private void btn_extension_info_Click(object sender, EventArgs e)
+        {
+            ShowMsgBox("Please provide extensions for files to be searched\nDo not use dots or regular expressions.\nUse comma as a delimiter.", "File extensions");
         }
 
         private void ShowMsgBox(string text, string caption)
         {
             MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        private void btn_names_info_Click(object sender, EventArgs e)
-        {
-            ShowMsgBox("Test", "File names");
-        }
-
-        private void btn_extension_info_Click(object sender, EventArgs e)
-        {
-            ShowMsgBox("Test", "File extensions");
         }
     }
 }
