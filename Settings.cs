@@ -28,6 +28,8 @@ namespace disk_cleaner
                 dataGridView1.Rows.Add(false, drive, totalSpace.ToString("000.00") + " GiB", percentFree.ToString("00.00") + "%", 0);
 
             }
+
+            MessageBox.Show(GlobalVars.INI_PATH);
         }
     }
 }
