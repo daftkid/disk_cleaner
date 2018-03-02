@@ -9,27 +9,26 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
-using Ini;
+using configs;
 
 namespace disk_cleaner
 {
     public partial class Main : Form
     {
+
+        public Configs config = new Configs();
+
         public Main()
         {
             InitializeComponent();
 
-            // load INI file with saved settings
-            if (!LoadINIFile())
-            {
-                return;
-            }
+            config.LoadConfigs();
 
             // load list of the available disks in system to a combo box
             foreach (var drive in DriveInfo.GetDrives())
             {
                 cb_disk.Items.Add(drive);
-                cb_disk.Text = drive.ToString();
+                //cb_disk.Text = drive.ToString();
             }
         }
 
@@ -47,7 +46,10 @@ namespace disk_cleaner
 
         private void btn_default_Click(object sender, EventArgs e)
         {
-
+            tb_file_exts.Text = GlobalVars.file_exts;
+            tb_file_names.Text = GlobalVars.file_names;
+            cb_disk.Text = GlobalVars.disk;
+            cb_show_log.Checked = GlobalVars.show_log;
         }
 
         // Info buttons executing
@@ -72,38 +74,6 @@ namespace disk_cleaner
             MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private bool LoadINIFile()
-        {
-            try
-            {
-                IniFile ini;
-                GlobalVars.ini = new IniFile(GlobalVars.INI_PATH);
-
-                ini = GlobalVars.ini; 
-
-                GlobalVars.file_names = ini.IniReadValue("Main", "FileNames");
-                GlobalVars.file_exts = ini.IniReadValue("Main", "FileExtensions");           
-            }
-            catch
-            {
-                MessageBox.Show("Can not load ini from " + GlobalVars.INI_PATH + "file!", "INI loading failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-            return true;
-        }
-
-
-        // class for storing gloabal variables and constants
-
     }
 
-    public class GlobalVars
-    {
-        public static string INI_PATH = "..\\..\\config.ini";
-
-        public static IniFile ini;
-
-        public static string file_names;
-        public static string file_exts;
-    }
 }

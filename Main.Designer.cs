@@ -46,7 +46,7 @@
             this.btn_extension_info = new System.Windows.Forms.Button();
             this.btn_names_info = new System.Windows.Forms.Button();
             this.btn_disk_info = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cb_show_log = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -205,22 +205,22 @@
             this.btn_disk_info.UseVisualStyleBackColor = true;
             this.btn_disk_info.Click += new System.EventHandler(this.btn_disk_info_Click);
             // 
-            // checkBox1
+            // cb_show_log
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(27, 163);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(70, 17);
-            this.checkBox1.TabIndex = 15;
-            this.checkBox1.Text = "Show log";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cb_show_log.AutoSize = true;
+            this.cb_show_log.Location = new System.Drawing.Point(27, 163);
+            this.cb_show_log.Name = "cb_show_log";
+            this.cb_show_log.Size = new System.Drawing.Size(70, 17);
+            this.cb_show_log.TabIndex = 15;
+            this.cb_show_log.Text = "Show log";
+            this.cb_show_log.UseVisualStyleBackColor = true;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(333, 282);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.cb_show_log);
             this.Controls.Add(this.btn_disk_info);
             this.Controls.Add(this.btn_names_info);
             this.Controls.Add(this.btn_extension_info);
@@ -266,7 +266,7 @@
         private System.Windows.Forms.Button btn_extension_info;
         private System.Windows.Forms.Button btn_names_info;
         private System.Windows.Forms.Button btn_disk_info;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cb_show_log;
     }
 }
 
