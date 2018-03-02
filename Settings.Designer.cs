@@ -35,9 +35,9 @@
             this.tb_file_names = new System.Windows.Forms.TextBox();
             this.tb_file_exts = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.cb_save_logs_to_file = new System.Windows.Forms.CheckBox();
+            this.btn_browse = new System.Windows.Forms.Button();
+            this.tb_logs_path = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cb_show_log = new System.Windows.Forms.CheckBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -59,6 +59,7 @@
             this.btn_discard = new System.Windows.Forms.Button();
             this.btn_default = new System.Windows.Forms.Button();
             this.btn_ok = new System.Windows.Forms.Button();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -113,6 +114,7 @@
             this.tb_file_names.Name = "tb_file_names";
             this.tb_file_names.Size = new System.Drawing.Size(272, 20);
             this.tb_file_names.TabIndex = 3;
+            this.tb_file_names.TextChanged += new System.EventHandler(this.tb_file_exts_TextChanged);
             // 
             // tb_file_exts
             // 
@@ -120,12 +122,13 @@
             this.tb_file_exts.Name = "tb_file_exts";
             this.tb_file_exts.Size = new System.Drawing.Size(272, 20);
             this.tb_file_exts.TabIndex = 2;
+            this.tb_file_exts.TextChanged += new System.EventHandler(this.tb_file_exts_TextChanged);
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.checkBox2);
-            this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Controls.Add(this.textBox3);
+            this.groupBox2.Controls.Add(this.cb_save_logs_to_file);
+            this.groupBox2.Controls.Add(this.btn_browse);
+            this.groupBox2.Controls.Add(this.tb_logs_path);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.cb_show_log);
             this.groupBox2.Location = new System.Drawing.Point(12, 135);
@@ -135,33 +138,36 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Logging";
             // 
-            // checkBox2
+            // cb_save_logs_to_file
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(141, 29);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(101, 17);
-            this.checkBox2.TabIndex = 4;
-            this.checkBox2.Text = "Save logs to file";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.cb_save_logs_to_file.AutoSize = true;
+            this.cb_save_logs_to_file.Location = new System.Drawing.Point(141, 29);
+            this.cb_save_logs_to_file.Name = "cb_save_logs_to_file";
+            this.cb_save_logs_to_file.Size = new System.Drawing.Size(101, 17);
+            this.cb_save_logs_to_file.TabIndex = 4;
+            this.cb_save_logs_to_file.Text = "Save logs to file";
+            this.cb_save_logs_to_file.UseVisualStyleBackColor = true;
+            this.cb_save_logs_to_file.CheckedChanged += new System.EventHandler(this.cb_save_logs_to_file_CheckedChanged);
             // 
-            // button1
+            // btn_browse
             // 
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(305, 60);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(58, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Browse..";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_browse.Enabled = false;
+            this.btn_browse.Location = new System.Drawing.Point(305, 60);
+            this.btn_browse.Name = "btn_browse";
+            this.btn_browse.Size = new System.Drawing.Size(58, 23);
+            this.btn_browse.TabIndex = 3;
+            this.btn_browse.Text = "Browse..";
+            this.btn_browse.UseVisualStyleBackColor = true;
+            this.btn_browse.Click += new System.EventHandler(this.btn_browse_Click);
             // 
-            // textBox3
+            // tb_logs_path
             // 
-            this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(80, 61);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(219, 20);
-            this.textBox3.TabIndex = 2;
+            this.tb_logs_path.Enabled = false;
+            this.tb_logs_path.Location = new System.Drawing.Point(80, 61);
+            this.tb_logs_path.Name = "tb_logs_path";
+            this.tb_logs_path.Size = new System.Drawing.Size(219, 20);
+            this.tb_logs_path.TabIndex = 2;
+            this.tb_logs_path.TextChanged += new System.EventHandler(this.tb_file_exts_TextChanged);
             // 
             // label3
             // 
@@ -183,6 +189,7 @@
             this.cb_show_log.TabIndex = 0;
             this.cb_show_log.Text = "Show logs by default";
             this.cb_show_log.UseVisualStyleBackColor = true;
+            this.cb_show_log.CheckedChanged += new System.EventHandler(this.tb_file_exts_TextChanged);
             // 
             // openFileDialog1
             // 
@@ -224,6 +231,7 @@
             this.total_size,
             this.free_space,
             this.threshold});
+            this.dataGridView1.Enabled = false;
             this.dataGridView1.Location = new System.Drawing.Point(9, 101);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(364, 113);
@@ -282,6 +290,7 @@
             // 
             // comboBox1
             // 
+            this.comboBox1.Enabled = false;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "Hours",
@@ -295,6 +304,7 @@
             // 
             // numericUpDown1
             // 
+            this.numericUpDown1.Enabled = false;
             this.numericUpDown1.Location = new System.Drawing.Point(193, 23);
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(60, 20);
@@ -303,6 +313,7 @@
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
+            this.checkBox5.Enabled = false;
             this.checkBox5.Location = new System.Drawing.Point(9, 53);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(149, 17);
@@ -338,6 +349,7 @@
             this.btn_discard.TabIndex = 8;
             this.btn_discard.Text = "Discard";
             this.btn_discard.UseVisualStyleBackColor = true;
+            this.btn_discard.Click += new System.EventHandler(this.btn_discard_Click);
             // 
             // btn_default
             // 
@@ -357,6 +369,7 @@
             this.btn_ok.TabIndex = 10;
             this.btn_ok.Text = "OK";
             this.btn_ok.UseVisualStyleBackColor = true;
+            this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
             // 
             // Settings
             // 
@@ -395,9 +408,9 @@
         private System.Windows.Forms.TextBox tb_file_names;
         private System.Windows.Forms.TextBox tb_file_exts;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.CheckBox cb_save_logs_to_file;
+        private System.Windows.Forms.Button btn_browse;
+        private System.Windows.Forms.TextBox tb_logs_path;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox cb_show_log;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
@@ -419,5 +432,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn total_size;
         private System.Windows.Forms.DataGridViewTextBoxColumn free_space;
         private System.Windows.Forms.DataGridViewTextBoxColumn threshold;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

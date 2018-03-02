@@ -24,11 +24,15 @@ namespace disk_cleaner
 
             config.LoadConfigs();
 
+            OutputConfigs();
+
+            config.ini.IniWriteValue("Service", "RunNumber", (GlobalVars.run_number + 1).ToString());
+
             // load list of the available disks in system to a combo box
             foreach (var drive in DriveInfo.GetDrives())
             {
                 cb_disk.Items.Add(drive);
-                //cb_disk.Text = drive.ToString();
+                cb_disk.Text = drive.ToString();
             }
         }
 
@@ -72,6 +76,14 @@ namespace disk_cleaner
         private void ShowMsgBox(string text, string caption)
         {
             MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        // write values from INI file to form's elements
+        private void OutputConfigs()
+        {
+            tb_file_exts.Text = GlobalVars.file_exts;
+            tb_file_names.Text = GlobalVars.file_names;
+            cb_show_log.Checked = GlobalVars.show_log;
         }
 
     }

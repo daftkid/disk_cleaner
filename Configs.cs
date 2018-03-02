@@ -12,6 +12,9 @@ namespace configs
         public static string file_exts;
         public static string disk;
         public static bool show_log;
+        public static bool save_logs;
+        public static string log_path;
+        public static int run_number;
     }
 
     public class Configs
@@ -33,12 +36,17 @@ namespace configs
                     GlobalVars.file_names = ini.IniReadValue("Default", "FileNames");
                     GlobalVars.file_exts = ini.IniReadValue("Default", "FileExtensions");
                     GlobalVars.show_log = Convert.ToBoolean(ini.IniReadValue("Default", "ShowLogs"));
+                    GlobalVars.save_logs = false;
+                    GlobalVars.log_path = "";
                 }
                 else
                 {
                     GlobalVars.file_names = ini.IniReadValue("Main", "FileNames");
                     GlobalVars.file_exts = ini.IniReadValue("Main", "FileExtensions");
                     GlobalVars.show_log = Convert.ToBoolean(ini.IniReadValue("Logs", "ShowLogs"));
+                    GlobalVars.run_number = Convert.ToInt32(ini.IniReadValue("Service", "RunNumber"));
+                    GlobalVars.save_logs = Convert.ToBoolean(ini.IniReadValue("Logs", "SaveToFile"));
+                    GlobalVars.log_path = ini.IniReadValue("Logs", "LogPath");
                 }
 
             }
