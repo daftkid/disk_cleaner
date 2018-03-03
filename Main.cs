@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Collections;
 
 using configs;
 
@@ -15,7 +16,6 @@ namespace disk_cleaner
 {
     public partial class Main : Form
     {
-
         public Configs config = new Configs();
 
         public Main()
@@ -38,7 +38,15 @@ namespace disk_cleaner
 
         private void btn_scan_Click(object sender, EventArgs e)
         {
-            Result res_form = new Result();
+            // find files
+            Hashtable hashtable = new Hashtable();
+            List<string> filters_list = new List<string>();
+
+            string[] filters = GetFiltersFromInput(tb_file_exts.Text, tb_file_names.Text);
+
+            hashtable = GetListOfFiles(filters);
+
+            Result res_form = new Result(hashtable);
             res_form.Show();
         }
 
@@ -84,6 +92,41 @@ namespace disk_cleaner
             tb_file_exts.Text = GlobalVars.file_exts;
             tb_file_names.Text = GlobalVars.file_names;
             cb_show_log.Checked = GlobalVars.show_log;
+        }
+
+        private Hashtable GetListOfFiles(string [] filters)
+        {
+            Hashtable file_info = new Hashtable();
+
+            foreach (string filter in filters)
+            {
+                string[] files = System.IO.Directory.GetFiles("F:\\test_folder", filter, System.IO.SearchOption.AllDirectories);
+
+
+                foreach (string file in files)
+                {
+                    FileInfo info = new FileInfo(file);
+                    file_info.Add(file, info.Length);
+                }
+            }
+
+            return file_info;
+        }
+
+        private string[] GetFiltersFromInput(string exts, string names)
+        {
+            string[] result = { };
+            List<string> res = new List<string>();
+
+            foreach (string name in names.Split(','))
+            {
+                foreach (string ext in exts.Split(','))
+                {
+                    res.Add(name + "." + ext);
+                }
+            }
+
+            return res.ToArray();
         }
 
     }
