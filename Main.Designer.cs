@@ -161,7 +161,7 @@
             this.btn_default.Name = "btn_default";
             this.btn_default.Size = new System.Drawing.Size(75, 23);
             this.btn_default.TabIndex = 10;
-            this.btn_default.Text = "Default";
+            this.btn_default.Text = "Clear";
             this.btn_default.UseVisualStyleBackColor = true;
             this.btn_default.Click += new System.EventHandler(this.btn_default_Click);
             // 

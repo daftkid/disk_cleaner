@@ -13,12 +13,12 @@ namespace disk_cleaner
 {
     public partial class Result : Form
     {
+        private int count_of_files = 0;
+        private int sum_size = 0;
+
         public Result(Hashtable files)
         {
             InitializeComponent();
-
-            int count_of_files = 0;
-            int sum_size = 0;
 
             foreach (string file in files.Keys)
             {
@@ -28,12 +28,9 @@ namespace disk_cleaner
             }
 
             l_files_count_total.Text = count_of_files.ToString();
+            l_selected_files_count.Text = count_of_files.ToString();
             l_files_size_total.Text = sum_size.ToString();
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            l_selected_files_size.Text = sum_size.ToString();
         }
 
         private void btn_back_Click(object sender, EventArgs e)
@@ -47,6 +44,31 @@ namespace disk_cleaner
             {
                 row.Cells["Check"].Value = cb_select_all.Checked;
             }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
+        }
+
+        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            int files_count = 0;
+            int sum_size = 0;
+
+            dataGridView1_CellContentClick(sender, e);
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells["Check"].Value))
+                {
+                    files_count++;
+                    sum_size += Convert.ToInt32(row.Cells["File_size"].Value);
+                }
+            }
+
+            l_selected_files_count.Text = files_count.ToString();
+            l_selected_files_size.Text = sum_size.ToString();
         }
     }
 }

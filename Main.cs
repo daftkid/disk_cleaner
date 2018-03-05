@@ -16,6 +16,8 @@ namespace disk_cleaner
 {
     public partial class Main : Form
     {
+        // object for storing and manipulating configs from INI file
+        // provide common way for reading and writing configs
         public Configs config = new Configs();
 
         public Main()
@@ -53,7 +55,11 @@ namespace disk_cleaner
         private void btn_settings_Click(object sender, EventArgs e)
         {
             Settings settings_form = new Settings();
+            settings_form.MainForm = this;
             settings_form.Show();
+            OutputConfigs();
+
+            this.Hide();
         }
 
         private void btn_default_Click(object sender, EventArgs e)
@@ -87,7 +93,7 @@ namespace disk_cleaner
         }
 
         // write values from INI file to form's elements
-        private void OutputConfigs()
+        public void OutputConfigs()
         {
             tb_file_exts.Text = GlobalVars.file_exts;
             tb_file_names.Text = GlobalVars.file_names;

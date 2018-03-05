@@ -33,17 +33,17 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.cb_select_all = new System.Windows.Forms.CheckBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Check = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.File_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.File_size = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btn_remove = new System.Windows.Forms.Button();
             this.btn_back = new System.Windows.Forms.Button();
             this.l_files_count_total = new System.Windows.Forms.Label();
             this.l_files_size_total = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
+            this.l_selected_files_size = new System.Windows.Forms.Label();
+            this.l_selected_files_count = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.Check = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.File_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.File_size = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -95,7 +95,8 @@
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Check,
@@ -106,6 +107,29 @@
             this.dataGridView1.Size = new System.Drawing.Size(439, 167);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
+            // 
+            // Check
+            // 
+            this.Check.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.Check.HeaderText = "";
+            this.Check.Name = "Check";
+            this.Check.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // File_Name
+            // 
+            this.File_Name.FillWeight = 200F;
+            this.File_Name.HeaderText = "File name";
+            this.File_Name.Name = "File_Name";
+            this.File_Name.ReadOnly = true;
+            // 
+            // File_size
+            // 
+            this.File_size.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.File_size.HeaderText = "File size";
+            this.File_size.Name = "File_size";
+            this.File_size.ReadOnly = true;
+            this.File_size.Width = 69;
             // 
             // btn_remove
             // 
@@ -144,23 +168,23 @@
             this.l_files_size_total.TabIndex = 6;
             this.l_files_size_total.Text = "144 Mb";
             // 
-            // label5
+            // l_selected_files_size
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(336, 57);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 13);
-            this.label5.TabIndex = 10;
-            this.label5.Text = "144 Mb";
+            this.l_selected_files_size.AutoSize = true;
+            this.l_selected_files_size.Location = new System.Drawing.Point(336, 57);
+            this.l_selected_files_size.Name = "l_selected_files_size";
+            this.l_selected_files_size.Size = new System.Drawing.Size(43, 13);
+            this.l_selected_files_size.TabIndex = 10;
+            this.l_selected_files_size.Text = "144 Mb";
             // 
-            // label6
+            // l_selected_files_count
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(339, 30);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(25, 13);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "256";
+            this.l_selected_files_count.AutoSize = true;
+            this.l_selected_files_count.Location = new System.Drawing.Point(339, 30);
+            this.l_selected_files_count.Name = "l_selected_files_count";
+            this.l_selected_files_count.Size = new System.Drawing.Size(25, 13);
+            this.l_selected_files_count.TabIndex = 9;
+            this.l_selected_files_count.Text = "256";
             // 
             // label7
             // 
@@ -180,36 +204,13 @@
             this.label8.TabIndex = 7;
             this.label8.Text = "Selected files count:";
             // 
-            // Check
-            // 
-            this.Check.HeaderText = "";
-            this.Check.Name = "Check";
-            this.Check.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.Check.Width = 20;
-            // 
-            // File_Name
-            // 
-            this.File_Name.FillWeight = 200F;
-            this.File_Name.HeaderText = "File name";
-            this.File_Name.Name = "File_Name";
-            this.File_Name.ReadOnly = true;
-            this.File_Name.Width = 300;
-            // 
-            // File_size
-            // 
-            this.File_size.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.File_size.HeaderText = "File size";
-            this.File_size.Name = "File_size";
-            this.File_size.ReadOnly = true;
-            this.File_size.Width = 69;
-            // 
             // Result
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(491, 355);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.l_selected_files_size);
+            this.Controls.Add(this.l_selected_files_count);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.l_files_size_total);
@@ -240,8 +241,8 @@
         private System.Windows.Forms.Button btn_back;
         private System.Windows.Forms.Label l_files_count_total;
         private System.Windows.Forms.Label l_files_size_total;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label l_selected_files_size;
+        private System.Windows.Forms.Label l_selected_files_count;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Check;

@@ -16,13 +16,12 @@ namespace disk_cleaner
     public partial class Settings : Form
     {
 
-        public Configs config = new Configs();
+        //public Configs config = new Configs();
+        public Main MainForm { get; set; }
 
         public Settings()
         {
             InitializeComponent();
-
-            config.LoadConfigs();
             OutputConfigs();
 
             btn_apply.Enabled = false;
@@ -37,28 +36,35 @@ namespace disk_cleaner
                 float num = (float)percentFree;
 
                 dataGridView1.Rows.Add(false, drive, totalSpace.ToString("000.00") + " GiB", percentFree.ToString("00.00") + "%", 0);
-
             }
         }
 
         // write new values to INI file
         private void btn_apply_Click(object sender, EventArgs e)
         {
-            config.ini.IniWriteValue("Main", "FileExtensions", tb_file_exts.Text);
-            config.ini.IniWriteValue("Main", "FileNames", tb_file_names.Text);
-            config.ini.IniWriteValue("Logs", "ShowLogs", cb_show_log.Checked.ToString());
+            MainForm.config.ini.IniWriteValue("Main", "FileExtensions", tb_file_exts.Text);
+            MainForm.config.ini.IniWriteValue("Main", "FileNames", tb_file_names.Text);
+            MainForm.config.ini.IniWriteValue("Logs", "ShowLogs", cb_show_log.Checked.ToString());
 
-            config.ini.IniWriteValue("Logs", "SaveToFile", cb_save_logs_to_file.Checked.ToString());
-            config.ini.IniWriteValue("Logs", "LogPath", tb_logs_path.Text);
+            MainForm.config.ini.IniWriteValue("Logs", "SaveToFile", cb_save_logs_to_file.Checked.ToString());
+            MainForm.config.ini.IniWriteValue("Logs", "LogPath", tb_logs_path.Text);
             
-
             btn_apply.Enabled = false;
+            
+            // reload updated configs from INI file after writing
+            MainForm.config.LoadConfigs();
+            // renew fields on Main form after saving new configs
+
+
+            MainForm.OutputConfigs();
+            this.OutputConfigs();
+            
         }
 
         // set default configs (from 'Default' section in INI file)
         private void btn_default_Click(object sender, EventArgs e)
         {
-            config.LoadConfigs(true);
+            MainForm.config.LoadConfigs(true);
             OutputConfigs();
 
             btn_discard.Enabled = false;
@@ -116,6 +122,11 @@ namespace disk_cleaner
             {
                 tb_logs_path.Text = saveFileDialog1.FileName;
             }
+        }
+
+        private void Settings_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            MainForm.Show();
         }
     }
 }
