@@ -15,6 +15,10 @@ namespace configs
         public static bool save_logs;
         public static string log_path;
         public static int run_number;
+        public static bool start_in_bg;
+        public static bool trigger_on_disk_space;
+        public static int time_step;
+        public static string time_measure;
     }
 
     public class Configs

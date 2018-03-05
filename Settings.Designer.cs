@@ -43,7 +43,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgv_disks_list = new System.Windows.Forms.DataGridView();
             this.check_disk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.disk = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.total_size = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,10 +51,10 @@
             this.threshold = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button6 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.cb_time_measure = new System.Windows.Forms.ComboBox();
+            this.nud_time_step = new System.Windows.Forms.NumericUpDown();
+            this.cb_trigger_on_low_disk_space = new System.Windows.Forms.CheckBox();
+            this.cb_start_in_bg = new System.Windows.Forms.CheckBox();
             this.btn_apply = new System.Windows.Forms.Button();
             this.btn_discard = new System.Windows.Forms.Button();
             this.btn_default = new System.Windows.Forms.Button();
@@ -63,8 +63,8 @@
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_disks_list)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_time_step)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -205,13 +205,13 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.dataGridView1);
+            this.groupBox3.Controls.Add(this.dgv_disks_list);
             this.groupBox3.Controls.Add(this.button6);
             this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.comboBox1);
-            this.groupBox3.Controls.Add(this.numericUpDown1);
-            this.groupBox3.Controls.Add(this.checkBox5);
-            this.groupBox3.Controls.Add(this.checkBox4);
+            this.groupBox3.Controls.Add(this.cb_time_measure);
+            this.groupBox3.Controls.Add(this.nud_time_step);
+            this.groupBox3.Controls.Add(this.cb_trigger_on_low_disk_space);
+            this.groupBox3.Controls.Add(this.cb_start_in_bg);
             this.groupBox3.Location = new System.Drawing.Point(12, 241);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(379, 220);
@@ -219,23 +219,23 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Automation";
             // 
-            // dataGridView1
+            // dgv_disks_list
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgv_disks_list.AllowUserToAddRows = false;
+            this.dgv_disks_list.AllowUserToDeleteRows = false;
+            this.dgv_disks_list.AllowUserToResizeRows = false;
+            this.dgv_disks_list.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_disks_list.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.check_disk,
             this.disk,
             this.total_size,
             this.free_space,
             this.threshold});
-            this.dataGridView1.Enabled = false;
-            this.dataGridView1.Location = new System.Drawing.Point(9, 101);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(364, 113);
-            this.dataGridView1.TabIndex = 17;
+            this.dgv_disks_list.Enabled = false;
+            this.dgv_disks_list.Location = new System.Drawing.Point(9, 101);
+            this.dgv_disks_list.Name = "dgv_disks_list";
+            this.dgv_disks_list.Size = new System.Drawing.Size(364, 113);
+            this.dgv_disks_list.TabIndex = 17;
             // 
             // check_disk
             // 
@@ -288,48 +288,52 @@
             this.label5.TabIndex = 8;
             this.label5.Text = "Select disk(s):";
             // 
-            // comboBox1
+            // cb_time_measure
             // 
-            this.comboBox1.Enabled = false;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Hours",
+            this.cb_time_measure.Enabled = false;
+            this.cb_time_measure.FormattingEnabled = true;
+            this.cb_time_measure.Items.AddRange(new object[] {
             "Minutes",
+            "Hours",
             "Days",
             "Weeks"});
-            this.comboBox1.Location = new System.Drawing.Point(269, 22);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(67, 21);
-            this.comboBox1.TabIndex = 4;
+            this.cb_time_measure.Location = new System.Drawing.Point(269, 22);
+            this.cb_time_measure.Name = "cb_time_measure";
+            this.cb_time_measure.Size = new System.Drawing.Size(67, 21);
+            this.cb_time_measure.TabIndex = 4;
+            this.cb_time_measure.Text = "Minutes";
+            this.cb_time_measure.TextChanged += new System.EventHandler(this.tb_file_exts_TextChanged);
             // 
-            // numericUpDown1
+            // nud_time_step
             // 
-            this.numericUpDown1.Enabled = false;
-            this.numericUpDown1.Location = new System.Drawing.Point(193, 23);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(60, 20);
-            this.numericUpDown1.TabIndex = 3;
+            this.nud_time_step.Enabled = false;
+            this.nud_time_step.Location = new System.Drawing.Point(193, 23);
+            this.nud_time_step.Name = "nud_time_step";
+            this.nud_time_step.Size = new System.Drawing.Size(60, 20);
+            this.nud_time_step.TabIndex = 3;
+            this.nud_time_step.ValueChanged += new System.EventHandler(this.tb_file_exts_TextChanged);
             // 
-            // checkBox5
+            // cb_trigger_on_low_disk_space
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Enabled = false;
-            this.checkBox5.Location = new System.Drawing.Point(9, 53);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(149, 17);
-            this.checkBox5.TabIndex = 2;
-            this.checkBox5.Text = "Free disk space less than:";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.cb_trigger_on_low_disk_space.AutoSize = true;
+            this.cb_trigger_on_low_disk_space.Location = new System.Drawing.Point(9, 53);
+            this.cb_trigger_on_low_disk_space.Name = "cb_trigger_on_low_disk_space";
+            this.cb_trigger_on_low_disk_space.Size = new System.Drawing.Size(149, 17);
+            this.cb_trigger_on_low_disk_space.TabIndex = 2;
+            this.cb_trigger_on_low_disk_space.Text = "Free disk space less than:";
+            this.cb_trigger_on_low_disk_space.UseVisualStyleBackColor = true;
+            this.cb_trigger_on_low_disk_space.CheckedChanged += new System.EventHandler(this.cb_trigger_on_low_disk_space_CheckedChanged);
             // 
-            // checkBox4
+            // cb_start_in_bg
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(9, 25);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(151, 17);
-            this.checkBox4.TabIndex = 1;
-            this.checkBox4.Text = "Start in background every:";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.cb_start_in_bg.AutoSize = true;
+            this.cb_start_in_bg.Location = new System.Drawing.Point(9, 25);
+            this.cb_start_in_bg.Name = "cb_start_in_bg";
+            this.cb_start_in_bg.Size = new System.Drawing.Size(151, 17);
+            this.cb_start_in_bg.TabIndex = 1;
+            this.cb_start_in_bg.Text = "Start in background every:";
+            this.cb_start_in_bg.UseVisualStyleBackColor = true;
+            this.cb_start_in_bg.CheckedChanged += new System.EventHandler(this.cb_start_in_bg_CheckedChanged);
             // 
             // btn_apply
             // 
@@ -393,8 +397,8 @@
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_disks_list)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_time_step)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -418,16 +422,16 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.CheckBox checkBox4;
+        private System.Windows.Forms.ComboBox cb_time_measure;
+        private System.Windows.Forms.NumericUpDown nud_time_step;
+        private System.Windows.Forms.CheckBox cb_trigger_on_low_disk_space;
+        private System.Windows.Forms.CheckBox cb_start_in_bg;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button btn_apply;
         private System.Windows.Forms.Button btn_discard;
         private System.Windows.Forms.Button btn_default;
         private System.Windows.Forms.Button btn_ok;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgv_disks_list;
         private System.Windows.Forms.DataGridViewCheckBoxColumn check_disk;
         private System.Windows.Forms.DataGridViewTextBoxColumn disk;
         private System.Windows.Forms.DataGridViewTextBoxColumn total_size;

@@ -26,17 +26,6 @@ namespace disk_cleaner
 
             btn_apply.Enabled = false;
             btn_discard.Enabled = false;
-
-            // Get all available disk drives in system
-            foreach (var drive in DriveInfo.GetDrives())
-            {
-                double freeSpace = drive.TotalFreeSpace;
-                double totalSpace = drive.TotalSize / 1024.0 / 1024.0 / 1024.0;
-                double percentFree = (freeSpace / drive.TotalSize) * 100;
-                float num = (float)percentFree;
-
-                dataGridView1.Rows.Add(false, drive, totalSpace.ToString("000.00") + " GiB", percentFree.ToString("00.00") + "%", 0);
-            }
         }
 
         // write new values to INI file
@@ -48,13 +37,16 @@ namespace disk_cleaner
 
             MainForm.config.ini.IniWriteValue("Logs", "SaveToFile", cb_save_logs_to_file.Checked.ToString());
             MainForm.config.ini.IniWriteValue("Logs", "LogPath", tb_logs_path.Text);
+            MainForm.config.ini.IniWriteValue("Automation", "StartInBG", cb_start_in_bg.Checked.ToString());
+            MainForm.config.ini.IniWriteValue("Automation", "StartOnDiskFreeSpace", cb_trigger_on_low_disk_space.Checked.ToString());
+            MainForm.config.ini.IniWriteValue("Automation", "TimeStep", nud_time_step.Value.ToString());
+            MainForm.config.ini.IniWriteValue("Automation", "TimeMeasure", cb_time_measure.Text);
             
             btn_apply.Enabled = false;
             
             // reload updated configs from INI file after writing
             MainForm.config.LoadConfigs();
             // renew fields on Main form after saving new configs
-
 
             MainForm.OutputConfigs();
             this.OutputConfigs();
@@ -127,6 +119,38 @@ namespace disk_cleaner
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
             MainForm.Show();
+        }
+
+        private void cb_trigger_on_low_disk_space_CheckedChanged(object sender, EventArgs e)
+        {
+            dgv_disks_list.Enabled = cb_trigger_on_low_disk_space.Checked;
+
+            dgv_disks_list.Rows.Clear();
+            dgv_disks_list.Refresh();
+
+            // Get all available disk drives in system
+            foreach (var drive in DriveInfo.GetDrives())
+            {
+                double freeSpace = drive.TotalFreeSpace;
+                double totalSpace = drive.TotalSize / 1024.0 / 1024.0 / 1024.0;
+                double percentFree = (freeSpace / drive.TotalSize) * 100;
+                float num = (float)percentFree;
+
+                dgv_disks_list.Rows.Add(false, drive, totalSpace.ToString("000.00") + " GiB", percentFree.ToString("00.00") + "%", 0);
+            }
+
+            foreach (DataGridViewRow row in dgv_disks_list.Rows)
+            {
+                row.Visible = cb_trigger_on_low_disk_space.Checked;
+            }
+        }
+
+        private void cb_start_in_bg_CheckedChanged(object sender, EventArgs e)
+        {
+            cb_time_measure.Enabled = cb_start_in_bg.Checked;
+            nud_time_step.Enabled = cb_start_in_bg.Checked;
+
+            tb_file_exts_TextChanged(sender, e);
         }
     }
 }
