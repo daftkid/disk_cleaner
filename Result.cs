@@ -27,6 +27,15 @@ namespace disk_cleaner
                 sum_size += Convert.ToInt32(files[file]);
             }
 
+            if (count_of_files == 0)
+            {
+                l_nothing_found.Visible = true;
+            }
+            else
+            {
+                l_nothing_found.Visible = false;
+            }
+
             l_files_count_total.Text = count_of_files.ToString();
             l_selected_files_count.Text = count_of_files.ToString();
             l_files_size_total.Text = sum_size.ToString();
@@ -69,6 +78,27 @@ namespace disk_cleaner
 
             l_selected_files_count.Text = files_count.ToString();
             l_selected_files_size.Text = sum_size.ToString();
+        }
+
+        private void l_selected_files_count_TextChanged(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(l_selected_files_count.Text) > 0)
+            {
+                btn_remove.Enabled = true;
+            }
+            else btn_remove.Enabled = false;
+        }
+
+        private void btn_remove_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells["Check"].Value))
+                {
+                    System.IO.File.Delete(row.Cells["File_name"].Value.ToString());
+                }
+            }
+            this.Close();
         }
     }
 }

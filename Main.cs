@@ -20,9 +20,17 @@ namespace disk_cleaner
         // provide common way for reading and writing configs
         public Configs config = new Configs();
 
+        // object for Logging form
+        public Scan_log scan_log;
+
+        // List of strings in log
+        public List<string> log = new List<string>();
+
         public Main()
         {
             InitializeComponent();
+
+            scan_log = new Scan_log();
 
             config.LoadConfigs();
 
@@ -47,6 +55,8 @@ namespace disk_cleaner
             string[] filters = GetFiltersFromInput(tb_file_exts.Text, tb_file_names.Text);
 
             hashtable = GetListOfFiles(filters);
+
+            cb_show_log_Click(sender, e);
 
             Result res_form = new Result(hashtable);
             res_form.Show();
@@ -104,16 +114,23 @@ namespace disk_cleaner
         {
             Hashtable file_info = new Hashtable();
 
+
             foreach (string filter in filters)
             {
-                string[] files = System.IO.Directory.GetFiles("F:\\test_folder", filter, System.IO.SearchOption.AllDirectories);
-
-
-                foreach (string file in files)
+                try
                 {
-                    FileInfo info = new FileInfo(file);
-                    file_info.Add(file, info.Length);
+                    string[] files = System.IO.Directory.GetFiles("F:\\test_folder\\", filter, System.IO.SearchOption.AllDirectories);
+                    foreach (string file in files)
+                    {
+                        FileInfo info = new FileInfo(file);
+                        file_info.Add(file, info.Length);
+
+                        log.Add(file);
+                    }
                 }
+                catch (UnauthorizedAccessException)
+                {
+                }           
             }
 
             return file_info;
@@ -135,6 +152,34 @@ namespace disk_cleaner
             return res.ToArray();
         }
 
+        private void cb_show_log_Click(object sender, EventArgs e)
+        {
+            if (cb_show_log.Checked)
+            {
+                try
+                {
+                    scan_log.OutputLog(log);
+                    scan_log.Show();
+                }
+                catch (ObjectDisposedException)
+                {
+                    scan_log = new Scan_log();
+                    scan_log.OutputLog(log);
+                    scan_log.Show();
+                }
+                
+            }
+            else
+            {
+                try
+                {
+                    scan_log.Hide();
+                }
+                catch (ObjectDisposedException)
+                { }            
+                
+            }
+        }
     }
 
 }

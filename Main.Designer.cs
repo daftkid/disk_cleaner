@@ -214,6 +214,7 @@
             this.cb_show_log.TabIndex = 15;
             this.cb_show_log.Text = "Show log";
             this.cb_show_log.UseVisualStyleBackColor = true;
+            this.cb_show_log.Click += new System.EventHandler(this.cb_show_log_Click);
             // 
             // Main
             // 

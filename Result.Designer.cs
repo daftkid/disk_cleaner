@@ -44,6 +44,7 @@
             this.l_selected_files_count = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.l_nothing_found = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -68,6 +69,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.l_nothing_found);
             this.groupBox1.Controls.Add(this.cb_select_all);
             this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Location = new System.Drawing.Point(27, 90);
@@ -139,6 +141,7 @@
             this.btn_remove.TabIndex = 3;
             this.btn_remove.Text = "Remove";
             this.btn_remove.UseVisualStyleBackColor = true;
+            this.btn_remove.Click += new System.EventHandler(this.btn_remove_Click);
             // 
             // btn_back
             // 
@@ -185,6 +188,7 @@
             this.l_selected_files_count.Size = new System.Drawing.Size(25, 13);
             this.l_selected_files_count.TabIndex = 9;
             this.l_selected_files_count.Text = "256";
+            this.l_selected_files_count.TextChanged += new System.EventHandler(this.l_selected_files_count_TextChanged);
             // 
             // label7
             // 
@@ -203,6 +207,16 @@
             this.label8.Size = new System.Drawing.Size(103, 13);
             this.label8.TabIndex = 7;
             this.label8.Text = "Selected files count:";
+            // 
+            // l_nothing_found
+            // 
+            this.l_nothing_found.AutoSize = true;
+            this.l_nothing_found.Location = new System.Drawing.Point(159, 113);
+            this.l_nothing_found.Name = "l_nothing_found";
+            this.l_nothing_found.Size = new System.Drawing.Size(98, 13);
+            this.l_nothing_found.TabIndex = 2;
+            this.l_nothing_found.Text = "NOTHING FOUND";
+            this.l_nothing_found.Visible = false;
             // 
             // Result
             // 
@@ -248,5 +262,6 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Check;
         private System.Windows.Forms.DataGridViewTextBoxColumn File_Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn File_size;
+        private System.Windows.Forms.Label l_nothing_found;
     }
 }
