@@ -10,7 +10,6 @@ namespace configs
 
         public static string file_names;
         public static string file_exts;
-        public static string disk;
         public static bool show_log;
         public static bool save_logs;
         public static string log_path;

@@ -12,8 +12,6 @@ namespace disk_cleaner
 {
     public partial class Scan_log : Form
     {
-        private string prepend = "==> Found: ";
-
         public Scan_log()
         {
             InitializeComponent();
@@ -24,7 +22,6 @@ namespace disk_cleaner
             richTextBox1.Clear();
             foreach (string line in text)
             {
-                richTextBox1.AppendText(prepend);
                 richTextBox1.AppendText(line + "\r\n");
             }
         }
