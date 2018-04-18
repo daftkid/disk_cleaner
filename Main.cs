@@ -5,15 +5,26 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Collections;
 
+
 using configs;
 
 namespace disk_cleaner
 {
+
+    enum Scheduler
+    {
+        EveryMinutes,
+        EveryHour,
+        EveryDay,
+        EveryWeek
+    }
+
     public partial class Main : Form
     {
         // object for storing and manipulating configs from INI file
@@ -33,6 +44,8 @@ namespace disk_cleaner
             // crate form with logs
             scan_log = new Scan_log();
 
+            scheduler.Visible = false;
+
             // load configs from ini to global object
             this.config.LoadConfigs();
 
@@ -47,14 +60,24 @@ namespace disk_cleaner
                 cb_disk.Items.Add(drive);
                 cb_disk.Text = drive.ToString();
             }
+
+            SchedulerExecute();
         }
 
         // Action on button 'Scan' click
         private void btn_scan_Click(object sender, EventArgs e)
         {
+            banner banner = new banner();
+            banner.Show();
+
+            Application.DoEvents();
+
             // find files
             Hashtable files_dict = new Hashtable();
             List<string> filters_list = new List<string>();
+
+            this.Hide();
+
 
             // get all possible combination of extension regexp and name regexp
             string[] filters = this.GetFiltersFromInput(tb_file_exts.Text, tb_file_names.Text);
@@ -67,6 +90,9 @@ namespace disk_cleaner
 
             // Show form with results of scanning
             Result res_form = new Result(files_dict);
+            banner.Hide();
+            this.Show();
+
             try
             {
                 res_form.Show();
@@ -75,9 +101,12 @@ namespace disk_cleaner
             {
                 res_form.Show();
             }
-            
-        }
 
+            if (GlobalVars.save_logs)
+            {
+                WriteLogsToFile(log, GlobalVars.log_path);
+            }           
+        }
         // Action on button 'Settings' click 
         private void btn_settings_Click(object sender, EventArgs e)
         {
@@ -92,14 +121,12 @@ namespace disk_cleaner
             // Hide main form and waiting for actions from user
             this.Hide();
         }
-
         // Action on button 'Clear' click
         // Load latest saved configs to main form
         private void btn_default_Click(object sender, EventArgs e)
         {
             this.OutputConfigs();
         }
-
         // Info buttons executing
         private void btn_disk_info_Click(object sender, EventArgs e)
         {
@@ -118,15 +145,22 @@ namespace disk_cleaner
         {
             MessageBox.Show(text, caption, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-
         // write out values from INI file to form's elements
         public void OutputConfigs()
         {
             tb_file_exts.Text = GlobalVars.file_exts;
             tb_file_names.Text = GlobalVars.file_names;
             cb_show_log.Checked = GlobalVars.show_log;
-        }
 
+            if (GlobalVars.start_in_bg)
+            {
+                scheduler.Visible = true;
+            }
+            else
+            {
+                scheduler.Visible = false;
+            }
+        }
         // Search files matching particular pattern
         private Hashtable GetListOfFiles(string [] filters)
         {
@@ -158,12 +192,13 @@ namespace disk_cleaner
                             file_info.Add(file, info.Length);
                             
                             // add new line to log
-                            log.Add("Found file: " + file);
+                            log.Add(string.Format("{0:HH:mm:ss}", DateTime.Now) + " Filter: [" + filter + "] Found file: " + file);
+
                         }
                     }
                     catch (UnauthorizedAccessException e)
                     {
-                        log.Add("Error: " + e.Message);
+                        log.Add(string.Format("{0:HH:mm:ss}", DateTime.Now) + " Filter: [" + filter + "] Error: " + e.Message);
                     }
                         
 
@@ -218,6 +253,16 @@ namespace disk_cleaner
             }
         }
 
+        private void WriteLogsToFile(List<string> logs, string path)
+        {
+            TextWriter tw = new StreamWriter(path);
+
+            foreach (String s in logs)
+                tw.WriteLine(s);
+
+            tw.Close();
+        }
+
         private List<string> ShowAllFoldersOnDrive(string path)
         {
             List<string> result = new List<string>();
@@ -231,10 +276,125 @@ namespace disk_cleaner
             }
             catch (UnauthorizedAccessException e)
             {
-                log.Add("Error: " + e.Message);
             }
 
             return result;
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // TODO: show about window
+        }
+
+        CancellationTokenSource m_ctSource;
+
+        private void runCodeAt(DateTime date, Scheduler scheduler)
+        {
+            m_ctSource = new CancellationTokenSource();
+
+            var dateNow = DateTime.Now;
+            TimeSpan ts;
+            if (date > dateNow)
+                ts = date - dateNow;
+            else
+            {
+                date = getNextDate(date, scheduler, GlobalVars.time_step);
+                ts = date - dateNow;
+            }
+
+            //waits certan time and run the code, in meantime you can cancel the task at anty time
+            Task.Delay(ts).ContinueWith((x) =>
+            {
+                //run the code at the time
+                methodToCall(date);
+
+                //setup call next day
+                runCodeAt(getNextDate(date, scheduler, GlobalVars.time_step), scheduler);
+
+            }, m_ctSource.Token);
+        }
+
+        private DateTime getNextDate(DateTime date, Scheduler scheduler, int step)
+        {
+            switch (scheduler)
+            {
+                case Scheduler.EveryMinutes:
+                    return date.AddMinutes(step);
+                case Scheduler.EveryHour:
+                    return date.AddHours(step);
+                case Scheduler.EveryDay:
+                    return date.AddDays(step);
+                case Scheduler.EveryWeek:
+                    return date.AddDays(step);
+                default:
+                    throw new Exception("Invalid scheduler");
+            }
+
+        }
+
+        private void methodToCall(DateTime time)
+        {
+            //setup next call
+            var nextTimeToCall = getNextDate(time, getScheduler(), GlobalVars.time_step);
+
+            MessageBox.Show(string.Format("Cleaning started at {0}. The next execution will be at {1}", time, nextTimeToCall));
+
+            this.BeginInvoke((Action)(() =>
+            {
+                btn_scan.PerformClick();
+            }));
+        }
+
+        private Scheduler getScheduler()
+        {
+            string time_measure = GlobalVars.time_measure;
+            switch (time_measure)
+            {
+                case "Minutes":
+                    return Scheduler.EveryMinutes;
+                case "Hours":
+                    return Scheduler.EveryHour;
+                case "Days":
+                    return Scheduler.EveryDay;
+                case "Weeks":
+                    return Scheduler.EveryWeek;
+            }
+
+            //default
+            return Scheduler.EveryDay;
+        }
+
+        private void scheduler_Click(object sender, EventArgs e)
+        {
+            if (m_ctSource != null)
+            {
+                m_ctSource.Cancel();
+                scheduler.Visible = false;
+                MessageBox.Show("Scheduler has been stopped!");
+                GlobalVars.start_in_bg = false;
+                config.ini.IniWriteValue("Automation", "StartInBG", "False");
+            }
+        }
+
+        public void SchedulerExecute()
+        {
+            if (GlobalVars.start_in_bg)
+            {
+                scheduler.Visible = true;
+                var dateNow = DateTime.Now;
+                var date = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, dateNow.Hour, dateNow.Minute, 0);
+
+                var nextDateValue = getNextDate(date, getScheduler(), GlobalVars.time_step);
+
+                runCodeAt(nextDateValue, getScheduler());
+
+                MessageBox.Show("Scheduler activated! Next clean will be performed at " + nextDateValue.ToString());
+            }
         }
     }
 

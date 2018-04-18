@@ -50,6 +50,9 @@ namespace configs
                     GlobalVars.run_number = Convert.ToInt32(ini.IniReadValue("Service", "RunNumber"));
                     GlobalVars.save_logs = Convert.ToBoolean(ini.IniReadValue("Logs", "SaveToFile"));
                     GlobalVars.log_path = ini.IniReadValue("Logs", "LogPath");
+                    GlobalVars.start_in_bg = Convert.ToBoolean(ini.IniReadValue("Automation", "StartInBG"));
+                    GlobalVars.time_step = Convert.ToInt32(ini.IniReadValue("Automation", "TimeStep"));
+                    GlobalVars.time_measure = ini.IniReadValue("Automation", "TimeMeasure");
                 }
 
             }

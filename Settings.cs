@@ -15,8 +15,6 @@ namespace disk_cleaner
 {
     public partial class Settings : Form
     {
-
-        //public Configs config = new Configs();
         public Main MainForm { get; set; }
 
         public Settings()
@@ -71,6 +69,10 @@ namespace disk_cleaner
 
             cb_save_logs_to_file.Checked = GlobalVars.save_logs;
             tb_logs_path.Text = GlobalVars.log_path;
+
+            cb_start_in_bg.Checked = GlobalVars.start_in_bg;
+            cb_time_measure.Text = GlobalVars.time_measure;
+            nud_time_step.Value = GlobalVars.time_step;
         }
 
         private void btn_ok_Click(object sender, EventArgs e)
@@ -119,6 +121,7 @@ namespace disk_cleaner
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
             MainForm.Show();
+            MainForm.SchedulerExecute();
         }
 
         private void cb_trigger_on_low_disk_space_CheckedChanged(object sender, EventArgs e)

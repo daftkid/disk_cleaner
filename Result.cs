@@ -16,13 +16,18 @@ namespace disk_cleaner
         private int count_of_files = 0;
         private int sum_size = 0;
 
+        Hashtable files;
+
         public Result(Hashtable files)
         {
             InitializeComponent();
 
+            this.files = files;
+
             foreach (string file in files.Keys)
             {
-                dataGridView1.Rows.Add(true, file, files[file]);
+                double size = (double)Convert.ToInt32(files[file]);
+                dataGridView1.Rows.Add(true, file, ConvertFromBytes(size));
                 count_of_files++;
                 sum_size += Convert.ToInt32(files[file]);
             }
@@ -38,8 +43,8 @@ namespace disk_cleaner
 
             l_files_count_total.Text = count_of_files.ToString();
             l_selected_files_count.Text = count_of_files.ToString();
-            l_files_size_total.Text = sum_size.ToString();
-            l_selected_files_size.Text = sum_size.ToString();
+            l_files_size_total.Text = ConvertFromBytes(sum_size).ToString();
+            l_selected_files_size.Text = ConvertFromBytes(sum_size).ToString();
         }
 
         private void btn_back_Click(object sender, EventArgs e)
@@ -72,12 +77,12 @@ namespace disk_cleaner
                 if (Convert.ToBoolean(row.Cells["Check"].Value))
                 {
                     files_count++;
-                    sum_size += Convert.ToInt32(row.Cells["File_size"].Value);
+                    sum_size += Convert.ToInt32(files[row.Cells["File_name"].Value]);
                 }
             }
 
             l_selected_files_count.Text = files_count.ToString();
-            l_selected_files_size.Text = sum_size.ToString();
+            l_selected_files_size.Text = ConvertFromBytes(sum_size).ToString();
         }
 
         private void l_selected_files_count_TextChanged(object sender, EventArgs e)
@@ -99,6 +104,25 @@ namespace disk_cleaner
                 }
             }
             this.Close();
+        }
+
+        private string ConvertFromBytes(double byteCount)
+        {
+            string size = "0 Bytes";
+            if (byteCount >= 1073741824.0)
+                size = String.Format("{0:##.##}", byteCount / 1073741824.0) + " GB";
+            else if (byteCount >= 1048576.0)
+                size = String.Format("{0:##.##}", byteCount / 1048576.0) + " MB";
+            else if (byteCount >= 1024.0)
+                size = String.Format("{0:##.##}", byteCount / 1024.0) + " KB";
+            else if (byteCount > 0 && byteCount < 1024.0)
+                size = byteCount.ToString() + " Bytes";
+
+            return size;
+        }
+
+        private void Result_FormClosed(object sender, FormClosedEventArgs e)
+        {
         }
     }
 }
