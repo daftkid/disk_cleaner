@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.actionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,7 +47,15 @@
             this.btn_extension_info = new System.Windows.Forms.Button();
             this.btn_names_info = new System.Windows.Forms.Button();
             this.btn_disk_info = new System.Windows.Forms.Button();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cb_show_log = new System.Windows.Forms.CheckBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.scanDiskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scheduler = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,18 +81,27 @@
             // 
             // actionsToolStripMenuItem
             // 
+            this.actionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.scanDiskToolStripMenuItem,
+            this.clearToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.exitToolStripMenuItem});
             this.actionsToolStripMenuItem.Name = "actionsToolStripMenuItem";
             this.actionsToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.actionsToolStripMenuItem.Text = "Actions";
             // 
             // optionsToolStripMenuItem
             // 
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.settingsToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.optionsToolStripMenuItem.Text = "Options";
             // 
             // helpToolStripMenuItem
             // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.aboutToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -118,7 +136,7 @@
             // 
             this.btn_scan.Location = new System.Drawing.Point(103, 214);
             this.btn_scan.Name = "btn_scan";
-            this.btn_scan.Size = new System.Drawing.Size(157, 23);
+            this.btn_scan.Size = new System.Drawing.Size(147, 23);
             this.btn_scan.TabIndex = 5;
             this.btn_scan.Text = "Scan disk";
             this.btn_scan.UseVisualStyleBackColor = true;
@@ -161,7 +179,7 @@
             this.btn_default.Name = "btn_default";
             this.btn_default.Size = new System.Drawing.Size(75, 23);
             this.btn_default.TabIndex = 10;
-            this.btn_default.Text = "Default";
+            this.btn_default.Text = "Clear";
             this.btn_default.UseVisualStyleBackColor = true;
             this.btn_default.Click += new System.EventHandler(this.btn_default_Click);
             // 
@@ -169,7 +187,7 @@
             // 
             this.btn_settings.Location = new System.Drawing.Point(185, 185);
             this.btn_settings.Name = "btn_settings";
-            this.btn_settings.Size = new System.Drawing.Size(75, 23);
+            this.btn_settings.Size = new System.Drawing.Size(65, 23);
             this.btn_settings.TabIndex = 11;
             this.btn_settings.Text = "Settings";
             this.btn_settings.UseVisualStyleBackColor = true;
@@ -205,22 +223,79 @@
             this.btn_disk_info.UseVisualStyleBackColor = true;
             this.btn_disk_info.Click += new System.EventHandler(this.btn_disk_info_Click);
             // 
-            // checkBox1
+            // cb_show_log
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(27, 163);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(70, 17);
-            this.checkBox1.TabIndex = 15;
-            this.checkBox1.Text = "Show log";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cb_show_log.AutoSize = true;
+            this.cb_show_log.Location = new System.Drawing.Point(27, 163);
+            this.cb_show_log.Name = "cb_show_log";
+            this.cb_show_log.Size = new System.Drawing.Size(70, 17);
+            this.cb_show_log.TabIndex = 15;
+            this.cb_show_log.Text = "Show log";
+            this.cb_show_log.UseVisualStyleBackColor = true;
+            this.cb_show_log.Click += new System.EventHandler(this.cb_show_log_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 200;
+            // 
+            // scanDiskToolStripMenuItem
+            // 
+            this.scanDiskToolStripMenuItem.Name = "scanDiskToolStripMenuItem";
+            this.scanDiskToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.scanDiskToolStripMenuItem.Text = "Scan disk";
+            this.scanDiskToolStripMenuItem.Click += new System.EventHandler(this.btn_scan_Click);
+            // 
+            // clearToolStripMenuItem
+            // 
+            this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearToolStripMenuItem.Text = "Clear";
+            this.clearToolStripMenuItem.Click += new System.EventHandler(this.btn_default_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.btn_settings_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Text = "About";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // scheduler
+            // 
+            this.scheduler.Location = new System.Drawing.Point(256, 185);
+            this.scheduler.Name = "scheduler";
+            this.scheduler.Size = new System.Drawing.Size(62, 52);
+            this.scheduler.TabIndex = 16;
+            this.scheduler.Text = "Stop scheduler";
+            this.scheduler.UseVisualStyleBackColor = true;
+            this.scheduler.Click += new System.EventHandler(this.scheduler_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(333, 282);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.scheduler);
+            this.Controls.Add(this.cb_show_log);
             this.Controls.Add(this.btn_disk_info);
             this.Controls.Add(this.btn_names_info);
             this.Controls.Add(this.btn_extension_info);
@@ -238,6 +313,7 @@
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Disk Cleaner";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -266,7 +342,15 @@
         private System.Windows.Forms.Button btn_extension_info;
         private System.Windows.Forms.Button btn_names_info;
         private System.Windows.Forms.Button btn_disk_info;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cb_show_log;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ToolStripMenuItem scanDiskToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.Button scheduler;
     }
 }
 

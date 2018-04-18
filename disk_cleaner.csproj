@@ -45,6 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="banner.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="banner.Designer.cs">
+      <DependentUpon>banner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Configs.cs" />
+    <Compile Include="INI.cs" />
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,12 +67,21 @@
     <Compile Include="Result.Designer.cs">
       <DependentUpon>Result.cs</DependentUpon>
     </Compile>
+    <Compile Include="Scan_log.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Scan_log.Designer.cs">
+      <DependentUpon>Scan_log.cs</DependentUpon>
+    </Compile>
     <Compile Include="Settings.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="banner.resx">
+      <DependentUpon>banner.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
@@ -79,6 +96,9 @@
     </Compile>
     <EmbeddedResource Include="Result.resx">
       <DependentUpon>Result.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Scan_log.resx">
+      <DependentUpon>Scan_log.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Settings.resx">
       <DependentUpon>Settings.cs</DependentUpon>
