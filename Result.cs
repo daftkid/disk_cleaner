@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
 
@@ -13,14 +6,14 @@ namespace disk_cleaner
 {
     public partial class Result : Form
     {
-        private int count_of_files = 0;
-        private int sum_size = 0;
-
         Hashtable files;
 
         public Result(Hashtable files)
         {
             InitializeComponent();
+
+            int count_of_files = 0;
+            int sum_size = 0;
 
             this.files = files;
 
@@ -54,10 +47,14 @@ namespace disk_cleaner
 
         private void cb_select_all_CheckedChanged(object sender, EventArgs e)
         {
+            dataGridView1.CellValueChanged -= dataGridView1_CellValueChanged;
             foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 row.Cells["Check"].Value = cb_select_all.Checked;
             }
+            dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
+
+            printSizesOnLabels();
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -67,22 +64,8 @@ namespace disk_cleaner
 
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            int files_count = 0;
-            int sum_size = 0;
-
             dataGridView1_CellContentClick(sender, e);
-
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
-                if (Convert.ToBoolean(row.Cells["Check"].Value))
-                {
-                    files_count++;
-                    sum_size += Convert.ToInt32(files[row.Cells["File_name"].Value]);
-                }
-            }
-
-            l_selected_files_count.Text = files_count.ToString();
-            l_selected_files_size.Text = ConvertFromBytes(sum_size).ToString();
+            printSizesOnLabels();
         }
 
         private void l_selected_files_count_TextChanged(object sender, EventArgs e)
@@ -106,6 +89,7 @@ namespace disk_cleaner
             this.Close();
         }
 
+        // convert file sizes in bytes to Kb, Mb and Gb
         private string ConvertFromBytes(double byteCount)
         {
             string size = "0 Bytes";
@@ -121,8 +105,21 @@ namespace disk_cleaner
             return size;
         }
 
-        private void Result_FormClosed(object sender, FormClosedEventArgs e)
+        private void printSizesOnLabels()
         {
+            int sum_size = 0;
+            int files_count = 0;
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                if (Convert.ToBoolean(row.Cells["Check"].Value))
+                {
+                    files_count++;
+                    sum_size += Convert.ToInt32(files[row.Cells["File_name"].Value]);
+                }
+            }
+
+            l_selected_files_count.Text = files_count.ToString();
+            l_selected_files_size.Text = ConvertFromBytes(sum_size).ToString();
         }
     }
 }

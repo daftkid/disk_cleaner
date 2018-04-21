@@ -236,7 +236,6 @@
             this.Controls.Add(this.label1);
             this.Name = "Result";
             this.Text = "Disk Cleaner Results";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Result_FormClosed);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
