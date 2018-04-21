@@ -288,7 +288,8 @@ namespace disk_cleaner
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // TODO: show about window
+            About about_dialog = new About();
+            about_dialog.Show();
         }
 
         CancellationTokenSource m_ctSource;

@@ -6,7 +6,7 @@ namespace configs
 {
     public struct GlobalVars
     {
-        public static string INI_PATH = "..\\..\\config.ini";
+        public static string INI_PATH = ".\\config.ini";
 
         public static string file_names;
         public static string file_exts;
@@ -58,7 +58,7 @@ namespace configs
             }
             catch
             {
-                MessageBox.Show("Can not load ini from " + GlobalVars.INI_PATH + "file!", "INI loading failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Can not find ini from " + GlobalVars.INI_PATH + "file! File will be written after first run", "INI loading failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
         }

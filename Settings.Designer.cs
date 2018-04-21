@@ -316,6 +316,7 @@
             // cb_trigger_on_low_disk_space
             // 
             this.cb_trigger_on_low_disk_space.AutoSize = true;
+            this.cb_trigger_on_low_disk_space.Enabled = false;
             this.cb_trigger_on_low_disk_space.Location = new System.Drawing.Point(9, 53);
             this.cb_trigger_on_low_disk_space.Name = "cb_trigger_on_low_disk_space";
             this.cb_trigger_on_low_disk_space.Size = new System.Drawing.Size(149, 17);
