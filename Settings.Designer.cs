@@ -57,7 +57,6 @@
             this.cb_start_in_bg = new System.Windows.Forms.CheckBox();
             this.btn_apply = new System.Windows.Forms.Button();
             this.btn_discard = new System.Windows.Forms.Button();
-            this.btn_default = new System.Windows.Forms.Button();
             this.btn_ok = new System.Windows.Forms.Button();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.groupBox1.SuspendLayout();
@@ -113,7 +112,7 @@
             this.tb_file_names.Location = new System.Drawing.Point(91, 80);
             this.tb_file_names.Name = "tb_file_names";
             this.tb_file_names.Size = new System.Drawing.Size(272, 20);
-            this.tb_file_names.TabIndex = 3;
+            this.tb_file_names.TabIndex = 2;
             this.tb_file_names.TextChanged += new System.EventHandler(this.tb_file_exts_TextChanged);
             // 
             // tb_file_exts
@@ -121,7 +120,7 @@
             this.tb_file_exts.Location = new System.Drawing.Point(91, 51);
             this.tb_file_exts.Name = "tb_file_exts";
             this.tb_file_exts.Size = new System.Drawing.Size(272, 20);
-            this.tb_file_exts.TabIndex = 2;
+            this.tb_file_exts.TabIndex = 1;
             this.tb_file_exts.TextChanged += new System.EventHandler(this.tb_file_exts_TextChanged);
             // 
             // groupBox2
@@ -155,7 +154,7 @@
             this.btn_browse.Location = new System.Drawing.Point(305, 60);
             this.btn_browse.Name = "btn_browse";
             this.btn_browse.Size = new System.Drawing.Size(58, 23);
-            this.btn_browse.TabIndex = 3;
+            this.btn_browse.TabIndex = 6;
             this.btn_browse.Text = "Browse..";
             this.btn_browse.UseVisualStyleBackColor = true;
             this.btn_browse.Click += new System.EventHandler(this.btn_browse_Click);
@@ -166,7 +165,7 @@
             this.tb_logs_path.Location = new System.Drawing.Point(80, 61);
             this.tb_logs_path.Name = "tb_logs_path";
             this.tb_logs_path.Size = new System.Drawing.Size(219, 20);
-            this.tb_logs_path.TabIndex = 2;
+            this.tb_logs_path.TabIndex = 5;
             this.tb_logs_path.TextChanged += new System.EventHandler(this.tb_file_exts_TextChanged);
             // 
             // label3
@@ -186,7 +185,7 @@
             this.cb_show_log.Location = new System.Drawing.Point(9, 29);
             this.cb_show_log.Name = "cb_show_log";
             this.cb_show_log.Size = new System.Drawing.Size(124, 17);
-            this.cb_show_log.TabIndex = 0;
+            this.cb_show_log.TabIndex = 3;
             this.cb_show_log.Text = "Show logs by default";
             this.cb_show_log.UseVisualStyleBackColor = true;
             this.cb_show_log.CheckedChanged += new System.EventHandler(this.tb_file_exts_TextChanged);
@@ -275,9 +274,10 @@
             this.button6.Location = new System.Drawing.Point(342, 22);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(21, 20);
-            this.button6.TabIndex = 15;
+            this.button6.TabIndex = 10;
             this.button6.Text = "?4";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // label5
             // 
@@ -300,7 +300,7 @@
             this.cb_time_measure.Location = new System.Drawing.Point(269, 22);
             this.cb_time_measure.Name = "cb_time_measure";
             this.cb_time_measure.Size = new System.Drawing.Size(67, 21);
-            this.cb_time_measure.TabIndex = 4;
+            this.cb_time_measure.TabIndex = 9;
             this.cb_time_measure.Text = "Minutes";
             this.cb_time_measure.TextChanged += new System.EventHandler(this.tb_file_exts_TextChanged);
             // 
@@ -310,7 +310,7 @@
             this.nud_time_step.Location = new System.Drawing.Point(193, 23);
             this.nud_time_step.Name = "nud_time_step";
             this.nud_time_step.Size = new System.Drawing.Size(60, 20);
-            this.nud_time_step.TabIndex = 3;
+            this.nud_time_step.TabIndex = 8;
             this.nud_time_step.ValueChanged += new System.EventHandler(this.tb_file_exts_TextChanged);
             // 
             // cb_trigger_on_low_disk_space
@@ -331,7 +331,7 @@
             this.cb_start_in_bg.Location = new System.Drawing.Point(9, 25);
             this.cb_start_in_bg.Name = "cb_start_in_bg";
             this.cb_start_in_bg.Size = new System.Drawing.Size(151, 17);
-            this.cb_start_in_bg.TabIndex = 1;
+            this.cb_start_in_bg.TabIndex = 7;
             this.cb_start_in_bg.Text = "Start in background every:";
             this.cb_start_in_bg.UseVisualStyleBackColor = true;
             this.cb_start_in_bg.CheckedChanged += new System.EventHandler(this.cb_start_in_bg_CheckedChanged);
@@ -341,7 +341,7 @@
             this.btn_apply.Location = new System.Drawing.Point(28, 467);
             this.btn_apply.Name = "btn_apply";
             this.btn_apply.Size = new System.Drawing.Size(75, 23);
-            this.btn_apply.TabIndex = 7;
+            this.btn_apply.TabIndex = 11;
             this.btn_apply.Text = "Apply";
             this.btn_apply.UseVisualStyleBackColor = true;
             this.btn_apply.Click += new System.EventHandler(this.btn_apply_Click);
@@ -351,27 +351,17 @@
             this.btn_discard.Location = new System.Drawing.Point(109, 467);
             this.btn_discard.Name = "btn_discard";
             this.btn_discard.Size = new System.Drawing.Size(75, 23);
-            this.btn_discard.TabIndex = 8;
+            this.btn_discard.TabIndex = 12;
             this.btn_discard.Text = "Discard";
             this.btn_discard.UseVisualStyleBackColor = true;
             this.btn_discard.Click += new System.EventHandler(this.btn_discard_Click);
-            // 
-            // btn_default
-            // 
-            this.btn_default.Location = new System.Drawing.Point(190, 467);
-            this.btn_default.Name = "btn_default";
-            this.btn_default.Size = new System.Drawing.Size(75, 23);
-            this.btn_default.TabIndex = 9;
-            this.btn_default.Text = "Default";
-            this.btn_default.UseVisualStyleBackColor = true;
-            this.btn_default.Click += new System.EventHandler(this.btn_default_Click);
             // 
             // btn_ok
             // 
             this.btn_ok.Location = new System.Drawing.Point(302, 467);
             this.btn_ok.Name = "btn_ok";
             this.btn_ok.Size = new System.Drawing.Size(75, 23);
-            this.btn_ok.TabIndex = 10;
+            this.btn_ok.TabIndex = 14;
             this.btn_ok.Text = "OK";
             this.btn_ok.UseVisualStyleBackColor = true;
             this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
@@ -382,7 +372,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(404, 525);
             this.Controls.Add(this.btn_ok);
-            this.Controls.Add(this.btn_default);
             this.Controls.Add(this.btn_discard);
             this.Controls.Add(this.btn_apply);
             this.Controls.Add(this.groupBox3);
@@ -430,7 +419,6 @@
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button btn_apply;
         private System.Windows.Forms.Button btn_discard;
-        private System.Windows.Forms.Button btn_default;
         private System.Windows.Forms.Button btn_ok;
         private System.Windows.Forms.DataGridView dgv_disks_list;
         private System.Windows.Forms.DataGridViewCheckBoxColumn check_disk;

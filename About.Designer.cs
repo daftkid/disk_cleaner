@@ -76,7 +76,7 @@
             this.linkLabel1.Location = new System.Drawing.Point(12, 157);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(72, 13);
-            this.linkLabel1.TabIndex = 3;
+            this.linkLabel1.TabIndex = 1;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Find me in VK";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
@@ -87,7 +87,7 @@
             this.linkLabel2.Location = new System.Drawing.Point(12, 182);
             this.linkLabel2.Name = "linkLabel2";
             this.linkLabel2.Size = new System.Drawing.Size(102, 13);
-            this.linkLabel2.TabIndex = 4;
+            this.linkLabel2.TabIndex = 2;
             this.linkLabel2.TabStop = true;
             this.linkLabel2.Text = "Find me in Telegram";
             this.linkLabel2.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel2_LinkClicked);
@@ -97,7 +97,7 @@
             this.button1.Location = new System.Drawing.Point(201, 177);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 5;
+            this.button1.TabIndex = 4;
             this.button1.Text = "Close";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -108,7 +108,7 @@
             this.linkLabel3.Location = new System.Drawing.Point(12, 205);
             this.linkLabel3.Name = "linkLabel3";
             this.linkLabel3.Size = new System.Drawing.Size(79, 13);
-            this.linkLabel3.TabIndex = 6;
+            this.linkLabel3.TabIndex = 3;
             this.linkLabel3.TabStop = true;
             this.linkLabel3.Text = "LinkedIn profile";
             this.linkLabel3.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel3_LinkClicked);

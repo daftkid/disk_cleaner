@@ -148,7 +148,7 @@
             this.btn_remove.Location = new System.Drawing.Point(153, 313);
             this.btn_remove.Name = "btn_remove";
             this.btn_remove.Size = new System.Drawing.Size(84, 23);
-            this.btn_remove.TabIndex = 3;
+            this.btn_remove.TabIndex = 2;
             this.btn_remove.Text = "Remove";
             this.btn_remove.UseVisualStyleBackColor = true;
             this.btn_remove.Click += new System.EventHandler(this.btn_remove_Click);
@@ -158,7 +158,7 @@
             this.btn_back.Location = new System.Drawing.Point(248, 313);
             this.btn_back.Name = "btn_back";
             this.btn_back.Size = new System.Drawing.Size(84, 23);
-            this.btn_back.TabIndex = 4;
+            this.btn_back.TabIndex = 3;
             this.btn_back.Text = "Back to scan";
             this.btn_back.UseVisualStyleBackColor = true;
             this.btn_back.Click += new System.EventHandler(this.btn_back_Click);

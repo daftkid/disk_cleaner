@@ -54,7 +54,7 @@ namespace disk_cleaner
         // set default configs (from 'Default' section in INI file)
         private void btn_default_Click(object sender, EventArgs e)
         {
-            MainForm.config.LoadConfigs(true);
+            MainForm.config.LoadConfigs();
             OutputConfigs();
 
             btn_discard.Enabled = false;
@@ -154,6 +154,11 @@ namespace disk_cleaner
             nud_time_step.Enabled = cb_start_in_bg.Checked;
 
             tb_file_exts_TextChanged(sender, e);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

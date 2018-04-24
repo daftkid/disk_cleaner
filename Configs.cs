@@ -30,30 +30,19 @@ namespace configs
             ini = new IniFile(GlobalVars.INI_PATH);
         }
 
-        public void LoadConfigs(bool default_options = false)
+        public void LoadConfigs()
         {
             try
             {
-                if (default_options)
-                {
-                    GlobalVars.file_names = ini.IniReadValue("Default", "FileNames");
-                    GlobalVars.file_exts = ini.IniReadValue("Default", "FileExtensions");
-                    GlobalVars.show_log = Convert.ToBoolean(ini.IniReadValue("Default", "ShowLogs"));
-                    GlobalVars.save_logs = false;
-                    GlobalVars.log_path = "";
-                }
-                else
-                {
-                    GlobalVars.file_names = ini.IniReadValue("Main", "FileNames");
-                    GlobalVars.file_exts = ini.IniReadValue("Main", "FileExtensions");
-                    GlobalVars.show_log = Convert.ToBoolean(ini.IniReadValue("Logs", "ShowLogs"));
-                    GlobalVars.run_number = Convert.ToInt32(ini.IniReadValue("Service", "RunNumber"));
-                    GlobalVars.save_logs = Convert.ToBoolean(ini.IniReadValue("Logs", "SaveToFile"));
-                    GlobalVars.log_path = ini.IniReadValue("Logs", "LogPath");
-                    GlobalVars.start_in_bg = Convert.ToBoolean(ini.IniReadValue("Automation", "StartInBG"));
-                    GlobalVars.time_step = Convert.ToInt32(ini.IniReadValue("Automation", "TimeStep"));
-                    GlobalVars.time_measure = ini.IniReadValue("Automation", "TimeMeasure");
-                }
+                GlobalVars.file_names = ini.IniReadValue("Main", "FileNames");
+                GlobalVars.file_exts = ini.IniReadValue("Main", "FileExtensions");
+                GlobalVars.show_log = Convert.ToBoolean(ini.IniReadValue("Logs", "ShowLogs"));
+                GlobalVars.run_number = Convert.ToInt32(ini.IniReadValue("Service", "RunNumber"));
+                GlobalVars.save_logs = Convert.ToBoolean(ini.IniReadValue("Logs", "SaveToFile"));
+                GlobalVars.log_path = ini.IniReadValue("Logs", "LogPath");
+                GlobalVars.start_in_bg = Convert.ToBoolean(ini.IniReadValue("Automation", "StartInBG"));
+                GlobalVars.time_step = Convert.ToInt32(ini.IniReadValue("Automation", "TimeStep"));
+                GlobalVars.time_measure = ini.IniReadValue("Automation", "TimeMeasure");
 
             }
             catch
