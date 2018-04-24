@@ -28,15 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Result));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.l_nothing_found = new System.Windows.Forms.Label();
-            this.cb_select_all = new System.Windows.Forms.CheckBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Check = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.File_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.File_size = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cb_select_all = new System.Windows.Forms.CheckBox();
             this.btn_remove = new System.Windows.Forms.Button();
             this.btn_back = new System.Windows.Forms.Button();
             this.l_files_count_total = new System.Windows.Forms.Label();
@@ -70,11 +71,10 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.l_nothing_found);
-            this.groupBox1.Controls.Add(this.cb_select_all);
             this.groupBox1.Controls.Add(this.dataGridView1);
-            this.groupBox1.Location = new System.Drawing.Point(27, 90);
+            this.groupBox1.Location = new System.Drawing.Point(27, 108);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(455, 217);
+            this.groupBox1.Size = new System.Drawing.Size(463, 199);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Chose files for removing";
@@ -89,19 +89,6 @@
             this.l_nothing_found.Text = "NOTHING FOUND";
             this.l_nothing_found.Visible = false;
             // 
-            // cb_select_all
-            // 
-            this.cb_select_all.AutoSize = true;
-            this.cb_select_all.Checked = true;
-            this.cb_select_all.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cb_select_all.Location = new System.Drawing.Point(6, 21);
-            this.cb_select_all.Name = "cb_select_all";
-            this.cb_select_all.Size = new System.Drawing.Size(189, 17);
-            this.cb_select_all.TabIndex = 1;
-            this.cb_select_all.Text = "Select all (might be slow operation)";
-            this.cb_select_all.UseVisualStyleBackColor = true;
-            this.cb_select_all.CheckedChanged += new System.EventHandler(this.cb_select_all_CheckedChanged);
-            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
@@ -114,19 +101,22 @@
             this.Check,
             this.File_Name,
             this.File_size});
-            this.dataGridView1.Location = new System.Drawing.Point(6, 44);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(439, 167);
+            this.dataGridView1.Size = new System.Drawing.Size(457, 180);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             // 
             // Check
             // 
+            this.Check.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.Check.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.Check.HeaderText = "";
             this.Check.Name = "Check";
             this.Check.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Check.Width = 20;
             // 
             // File_Name
             // 
@@ -142,6 +132,19 @@
             this.File_size.Name = "File_size";
             this.File_size.ReadOnly = true;
             this.File_size.Width = 69;
+            // 
+            // cb_select_all
+            // 
+            this.cb_select_all.AutoSize = true;
+            this.cb_select_all.Checked = true;
+            this.cb_select_all.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cb_select_all.Location = new System.Drawing.Point(27, 85);
+            this.cb_select_all.Name = "cb_select_all";
+            this.cb_select_all.Size = new System.Drawing.Size(189, 17);
+            this.cb_select_all.TabIndex = 1;
+            this.cb_select_all.Text = "Select all (might be slow operation)";
+            this.cb_select_all.UseVisualStyleBackColor = true;
+            this.cb_select_all.CheckedChanged += new System.EventHandler(this.cb_select_all_CheckedChanged);
             // 
             // btn_remove
             // 
@@ -222,8 +225,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(491, 355);
+            this.ClientSize = new System.Drawing.Size(504, 355);
             this.Controls.Add(this.l_selected_files_size);
+            this.Controls.Add(this.cb_select_all);
             this.Controls.Add(this.l_selected_files_count);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label8);
@@ -234,6 +238,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Result";
             this.Text = "Disk Cleaner Results";
             this.groupBox1.ResumeLayout(false);
@@ -259,9 +265,9 @@
         private System.Windows.Forms.Label l_selected_files_count;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label l_nothing_found;
         private System.Windows.Forms.DataGridViewCheckBoxColumn Check;
         private System.Windows.Forms.DataGridViewTextBoxColumn File_Name;
         private System.Windows.Forms.DataGridViewTextBoxColumn File_size;
-        private System.Windows.Forms.Label l_nothing_found;
     }
 }
