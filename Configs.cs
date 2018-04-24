@@ -6,7 +6,12 @@ namespace configs
 {
     public struct GlobalVars
     {
+        // Path to the INI file (not absolute, depends on exe file location)
+        // In this case, INI file will be stored on the same folder as exe file
+
         public static string INI_PATH = ".\\config.ini";
+
+        // variables for storing data from INI file, will be globally accessible
 
         public static string file_names;
         public static string file_exts;
@@ -34,16 +39,18 @@ namespace configs
         {
             try
             {
+                GlobalVars.run_number = Convert.ToInt32(ini.IniReadValue("Service", "RunNumber"));
+                // filters section
                 GlobalVars.file_names = ini.IniReadValue("Main", "FileNames");
                 GlobalVars.file_exts = ini.IniReadValue("Main", "FileExtensions");
-                GlobalVars.show_log = Convert.ToBoolean(ini.IniReadValue("Logs", "ShowLogs"));
-                GlobalVars.run_number = Convert.ToInt32(ini.IniReadValue("Service", "RunNumber"));
+                // logging section
+                GlobalVars.show_log = Convert.ToBoolean(ini.IniReadValue("Logs", "ShowLogs"));                
                 GlobalVars.save_logs = Convert.ToBoolean(ini.IniReadValue("Logs", "SaveToFile"));
                 GlobalVars.log_path = ini.IniReadValue("Logs", "LogPath");
+                // automation section
                 GlobalVars.start_in_bg = Convert.ToBoolean(ini.IniReadValue("Automation", "StartInBG"));
                 GlobalVars.time_step = Convert.ToInt32(ini.IniReadValue("Automation", "TimeStep"));
                 GlobalVars.time_measure = ini.IniReadValue("Automation", "TimeMeasure");
-
             }
             catch
             {

@@ -1,22 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Collections;
-
-
 using configs;
 
 namespace disk_cleaner
 {
-
     enum Scheduler
     {
         EveryMinutes,
@@ -47,12 +39,12 @@ namespace disk_cleaner
             scheduler.Visible = false;
 
             // load configs from ini to global object
-            this.config.LoadConfigs();
+            config.LoadConfigs();
 
             // write out configs to form's elements
-            this.OutputConfigs();
+            OutputConfigs();
 
-            this.config.ini.IniWriteValue("Service", "RunNumber", (GlobalVars.run_number + 1).ToString());
+            config.ini.IniWriteValue("Service", "RunNumber", (GlobalVars.run_number + 1).ToString());
 
             // load list of the available disks in system to a combo box
             foreach (var drive in DriveInfo.GetDrives())
@@ -116,7 +108,7 @@ namespace disk_cleaner
             };
             settings_form.Show();
 
-            this.OutputConfigs();
+            OutputConfigs();
 
             // Hide main form and waiting for actions from user
             this.Hide();
@@ -125,7 +117,7 @@ namespace disk_cleaner
         // Load latest saved configs to main form
         private void btn_default_Click(object sender, EventArgs e)
         {
-            this.OutputConfigs();
+            OutputConfigs();
         }
         // Info buttons executing
         private void btn_disk_info_Click(object sender, EventArgs e)
@@ -200,8 +192,6 @@ namespace disk_cleaner
                     {
                         log.Add(string.Format("{0:HH:mm:ss}", DateTime.Now) + " Filter: [" + filter + "] Error: " + e.Message);
                     }
-                        
-
                 }
             }
 
@@ -212,6 +202,11 @@ namespace disk_cleaner
         {
             string[] result = { };
             List<string> res = new List<string>();
+
+            if (names.Length == 0)
+            {
+                names = "*";
+            }
 
             foreach (string name in names.Split(','))
             {
@@ -239,7 +234,6 @@ namespace disk_cleaner
                     scan_log.OutputLog(log);
                     scan_log.Show();
                 }
-                
             }
             else
             {
@@ -248,8 +242,7 @@ namespace disk_cleaner
                     scan_log.Hide();
                 }
                 catch (ObjectDisposedException)
-                { }            
-                
+                { }             
             }
         }
 
@@ -313,10 +306,8 @@ namespace disk_cleaner
             {
                 //run the code at the time
                 methodToCall(date);
-
                 //setup call next day
                 runCodeAt(getNextDate(date, scheduler, GlobalVars.time_step), scheduler);
-
             }, m_ctSource.Token);
         }
 
@@ -335,7 +326,6 @@ namespace disk_cleaner
                 default:
                     throw new Exception("Invalid scheduler");
             }
-
         }
 
         private void methodToCall(DateTime time)
@@ -365,7 +355,6 @@ namespace disk_cleaner
                 case "Weeks":
                     return Scheduler.EveryWeek;
             }
-
             //default
             return Scheduler.EveryDay;
         }
@@ -395,6 +384,16 @@ namespace disk_cleaner
                 runCodeAt(nextDateValue, getScheduler());
 
                 MessageBox.Show("Scheduler activated! Next clean will be performed at " + nextDateValue.ToString());
+            }
+        }
+
+        private void tb_file_exts_Leave(object sender, EventArgs e)
+        {
+            if (tb_file_exts.Text.Length == 0 || tb_file_exts.Text == "*")
+            {
+                MessageBox.Show("Please specify at least one extension for searching!\n* symbol is forbidden for use", "Missing parameter", MessageBoxButtons.OK);
+                tb_file_exts.Clear();
+                tb_file_exts.Focus();
             }
         }
     }

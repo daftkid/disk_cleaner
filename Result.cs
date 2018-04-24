@@ -45,6 +45,7 @@ namespace disk_cleaner
             this.Close();
         }
 
+        // handler for clicking on Select all checkbox
         private void cb_select_all_CheckedChanged(object sender, EventArgs e)
         {
             dataGridView1.CellValueChanged -= dataGridView1_CellValueChanged;

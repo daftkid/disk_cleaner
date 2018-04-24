@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.actionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scanDiskToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,26 +85,26 @@
             // scanDiskToolStripMenuItem
             // 
             this.scanDiskToolStripMenuItem.Name = "scanDiskToolStripMenuItem";
-            this.scanDiskToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.scanDiskToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.scanDiskToolStripMenuItem.Text = "Scan disk";
             this.scanDiskToolStripMenuItem.Click += new System.EventHandler(this.btn_scan_Click);
             // 
             // clearToolStripMenuItem
             // 
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             this.clearToolStripMenuItem.Click += new System.EventHandler(this.btn_default_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(120, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -133,7 +134,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -180,6 +181,7 @@
             this.tb_file_exts.Name = "tb_file_exts";
             this.tb_file_exts.Size = new System.Drawing.Size(182, 20);
             this.tb_file_exts.TabIndex = 1;
+            this.tb_file_exts.Leave += new System.EventHandler(this.tb_file_exts_Leave);
             // 
             // tb_file_names
             // 
@@ -292,7 +294,10 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximizeBox = false;
             this.Name = "Main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Disk Cleaner";
