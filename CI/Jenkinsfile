@@ -1,0 +1,16 @@
+pipeline {
+    agent {docker 'didstopia/msbuild'}
+    stages {
+        stage('Git') {
+            steps {
+                echo "${params.Configuration}"
+                git 'https://github.com/daftkid/disk_cleaner.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh "msbuild.exe *.sln /p:Configuration=${params.Configuration}"
+            }
+        }
+    }
+}
