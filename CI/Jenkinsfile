@@ -32,6 +32,7 @@ pipeline {
         stage('Build') {
             steps {
                 sh "msbuild.exe *.sln /p:Configuration=${params.Configuration}"
+                archiveArtifacts artifacts: "bin/${params.Configuration}/*.exe", fingerprint: true
             }
         }
     }
