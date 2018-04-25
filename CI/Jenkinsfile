@@ -4,6 +4,16 @@ pipeline {
         BRANCH = ""
     }
     stages {
+        stage('Preparing the job') {
+            steps {
+                script {
+                    properties(
+                        [parameters([choice(choices: ["Debug", "Release"].join("\n"),
+                        description: 'Configuration for the build', 
+                        name: 'Configuration')])])
+                }
+            }
+        }
         stage('Pull latest commit') {
             steps {
                 script {
