@@ -55,6 +55,7 @@
             this.cb_show_log = new System.Windows.Forms.CheckBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.scheduler = new System.Windows.Forms.Button();
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -161,7 +162,7 @@
             this.btn_scan.Location = new System.Drawing.Point(103, 181);
             this.btn_scan.Name = "btn_scan";
             this.btn_scan.Size = new System.Drawing.Size(147, 23);
-            this.btn_scan.TabIndex = 10;
+            this.btn_scan.TabIndex = 1;
             this.btn_scan.Text = "Scan disk";
             this.btn_scan.UseVisualStyleBackColor = true;
             this.btn_scan.Click += new System.EventHandler(this.btn_scan_Click);
@@ -180,7 +181,7 @@
             this.tb_file_exts.Location = new System.Drawing.Point(109, 41);
             this.tb_file_exts.Name = "tb_file_exts";
             this.tb_file_exts.Size = new System.Drawing.Size(182, 20);
-            this.tb_file_exts.TabIndex = 1;
+            this.tb_file_exts.TabIndex = 2;
             this.tb_file_exts.Leave += new System.EventHandler(this.tb_file_exts_Leave);
             // 
             // tb_file_names
@@ -188,7 +189,7 @@
             this.tb_file_names.Location = new System.Drawing.Point(109, 68);
             this.tb_file_names.Name = "tb_file_names";
             this.tb_file_names.Size = new System.Drawing.Size(182, 20);
-            this.tb_file_names.TabIndex = 2;
+            this.tb_file_names.TabIndex = 3;
             // 
             // cb_disk
             // 
@@ -196,14 +197,14 @@
             this.cb_disk.Location = new System.Drawing.Point(109, 96);
             this.cb_disk.Name = "cb_disk";
             this.cb_disk.Size = new System.Drawing.Size(182, 21);
-            this.cb_disk.TabIndex = 3;
+            this.cb_disk.TabIndex = 4;
             // 
             // btn_default
             // 
             this.btn_default.Location = new System.Drawing.Point(103, 152);
             this.btn_default.Name = "btn_default";
             this.btn_default.Size = new System.Drawing.Size(75, 23);
-            this.btn_default.TabIndex = 8;
+            this.btn_default.TabIndex = 9;
             this.btn_default.Text = "Clear";
             this.btn_default.UseVisualStyleBackColor = true;
             this.btn_default.Click += new System.EventHandler(this.btn_default_Click);
@@ -213,7 +214,7 @@
             this.btn_settings.Location = new System.Drawing.Point(185, 152);
             this.btn_settings.Name = "btn_settings";
             this.btn_settings.Size = new System.Drawing.Size(65, 23);
-            this.btn_settings.TabIndex = 9;
+            this.btn_settings.TabIndex = 10;
             this.btn_settings.Text = "Settings";
             this.btn_settings.UseVisualStyleBackColor = true;
             this.btn_settings.Click += new System.EventHandler(this.btn_settings_Click);
@@ -223,7 +224,7 @@
             this.btn_extension_info.Location = new System.Drawing.Point(297, 41);
             this.btn_extension_info.Name = "btn_extension_info";
             this.btn_extension_info.Size = new System.Drawing.Size(21, 20);
-            this.btn_extension_info.TabIndex = 4;
+            this.btn_extension_info.TabIndex = 5;
             this.btn_extension_info.Text = "?4";
             this.btn_extension_info.UseVisualStyleBackColor = true;
             this.btn_extension_info.Click += new System.EventHandler(this.btn_extension_info_Click);
@@ -233,7 +234,7 @@
             this.btn_names_info.Location = new System.Drawing.Point(297, 68);
             this.btn_names_info.Name = "btn_names_info";
             this.btn_names_info.Size = new System.Drawing.Size(21, 20);
-            this.btn_names_info.TabIndex = 5;
+            this.btn_names_info.TabIndex = 6;
             this.btn_names_info.Text = "?4";
             this.btn_names_info.UseVisualStyleBackColor = true;
             this.btn_names_info.Click += new System.EventHandler(this.btn_names_info_Click);
@@ -243,7 +244,7 @@
             this.btn_disk_info.Location = new System.Drawing.Point(297, 96);
             this.btn_disk_info.Name = "btn_disk_info";
             this.btn_disk_info.Size = new System.Drawing.Size(21, 20);
-            this.btn_disk_info.TabIndex = 6;
+            this.btn_disk_info.TabIndex = 7;
             this.btn_disk_info.Text = "?4";
             this.btn_disk_info.UseVisualStyleBackColor = true;
             this.btn_disk_info.Click += new System.EventHandler(this.btn_disk_info_Click);
@@ -254,7 +255,7 @@
             this.cb_show_log.Location = new System.Drawing.Point(27, 130);
             this.cb_show_log.Name = "cb_show_log";
             this.cb_show_log.Size = new System.Drawing.Size(70, 17);
-            this.cb_show_log.TabIndex = 7;
+            this.cb_show_log.TabIndex = 8;
             this.cb_show_log.Text = "Show log";
             this.cb_show_log.UseVisualStyleBackColor = true;
             this.cb_show_log.Click += new System.EventHandler(this.cb_show_log_Click);
@@ -269,10 +270,20 @@
             this.scheduler.Location = new System.Drawing.Point(256, 152);
             this.scheduler.Name = "scheduler";
             this.scheduler.Size = new System.Drawing.Size(62, 52);
-            this.scheduler.TabIndex = 11;
+            this.scheduler.TabIndex = 12;
             this.scheduler.Text = "Stop scheduler";
             this.scheduler.UseVisualStyleBackColor = true;
             this.scheduler.Click += new System.EventHandler(this.scheduler_Click);
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIcon1.BalloonTipText = "dd";
+            this.notifyIcon1.BalloonTipTitle = "ddd";
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Text = "notifyIcon1";
+            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_DoubleClick);
             // 
             // Main
             // 
@@ -299,8 +310,9 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "Main";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Disk Cleaner";
+            this.Resize += new System.EventHandler(this.Main_Resize);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -334,6 +346,7 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Button scheduler;
+        private System.Windows.Forms.NotifyIcon notifyIcon1;
     }
 }
 

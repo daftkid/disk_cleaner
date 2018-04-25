@@ -26,6 +26,9 @@ namespace disk_cleaner
         // object for Logging form
         private Scan_log scan_log;
 
+        private int init = 1;
+        private int flag = 0;
+
         // List of strings in log
         private List<string> log = new List<string>();
 
@@ -33,13 +36,22 @@ namespace disk_cleaner
         {
             InitializeComponent();
 
+            {
+                notifyIcon1.BalloonTipText = "Application Minimized.";
+                notifyIcon1.BalloonTipTitle = "Disk Cleaner";
+            }
+
             // crate form with logs
             scan_log = new Scan_log();
 
             scheduler.Visible = false;
 
             // load configs from ini to global object
-            config.LoadConfigs();
+            if (!config.LoadConfigs())
+            {
+                EventArgs e = new EventArgs();
+                btn_settings_Click(this, e);
+            }
 
             // write out configs to form's elements
             OutputConfigs();
@@ -54,6 +66,7 @@ namespace disk_cleaner
             }
 
             SchedulerExecute();
+            init = 0;
         }
 
         // Action on button 'Scan' click
@@ -66,16 +79,29 @@ namespace disk_cleaner
 
             // find files
             Hashtable files_dict = new Hashtable();
-            List<string> filters_list = new List<string>();
 
             this.Hide();
+            string exts = "", names = "", disk = "";
 
+            if (flag == 0)
+            {
+                exts = tb_file_exts.Text;
+                names = tb_file_names.Text;
+                disk = cb_disk.Text;
+            }
+            else
+            {
+                exts = GlobalVars.file_exts_auto;
+                names = GlobalVars.file_names_auto;
+                //TODO
+                disk = cb_disk.Text;
+            }
 
             // get all possible combination of extension regexp and name regexp
-            string[] filters = this.GetFiltersFromInput(tb_file_exts.Text, tb_file_names.Text);
+            string[] filters = this.GetFiltersFromInput(exts, names);
 
             // get list of all suitable files under all directories
-            files_dict = this.GetListOfFiles(filters);
+            files_dict = this.GetListOfFiles(filters, disk);
 
             //
             cb_show_log_Click(sender, e);
@@ -154,7 +180,7 @@ namespace disk_cleaner
             }
         }
         // Search files matching particular pattern
-        private Hashtable GetListOfFiles(string [] filters)
+        private Hashtable GetListOfFiles(string [] filters, string disk)
         {
             // dictionary in the following format:
             // "path_to_file": "size"
@@ -162,7 +188,7 @@ namespace disk_cleaner
             List<string> dirs = new List<string>();
 
             // search all folders on selected drive recursively
-            dirs = this.ShowAllFoldersOnDrive(cb_disk.Text);
+            dirs = this.ShowAllFoldersOnDrive(disk);
 
             // loop thru all directories where we have access
             foreach (string dir in dirs)
@@ -200,7 +226,6 @@ namespace disk_cleaner
 
         private string[] GetFiltersFromInput(string exts, string names)
         {
-            string[] result = { };
             List<string> res = new List<string>();
 
             if (names.Length == 0)
@@ -267,7 +292,7 @@ namespace disk_cleaner
                     result.AddRange(ShowAllFoldersOnDrive(folder));
                 }
             }
-            catch (UnauthorizedAccessException e)
+            catch (UnauthorizedAccessException)
             {
             }
 
@@ -337,6 +362,7 @@ namespace disk_cleaner
 
             this.BeginInvoke((Action)(() =>
             {
+                flag = 1;
                 btn_scan.PerformClick();
             }));
         }
@@ -366,6 +392,7 @@ namespace disk_cleaner
                 m_ctSource.Cancel();
                 scheduler.Visible = false;
                 MessageBox.Show("Scheduler has been stopped!");
+                flag = 0;
                 GlobalVars.start_in_bg = false;
                 config.ini.IniWriteValue("Automation", "StartInBG", "False");
             }
@@ -385,6 +412,14 @@ namespace disk_cleaner
 
                 MessageBox.Show("Scheduler activated! Next clean will be performed at " + nextDateValue.ToString());
             }
+            if (init == 0 && GlobalVars.start_in_bg)
+            {
+                MessageBox.Show("This application will be minimized to system tray");
+
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(500);
+                this.Hide();
+            }
         }
 
         private void tb_file_exts_Leave(object sender, EventArgs e)
@@ -395,6 +430,28 @@ namespace disk_cleaner
                 tb_file_exts.Clear();
                 tb_file_exts.Focus();
             }
+        }
+
+        private void Main_Resize(object sender, EventArgs e)
+        {
+            if (FormWindowState.Minimized == this.WindowState)
+            {
+                notifyIcon1.Visible = true;
+                notifyIcon1.ShowBalloonTip(500);
+                this.Hide();
+            }
+
+            else if (FormWindowState.Normal == this.WindowState)
+            {
+                notifyIcon1.Visible = false;
+            }
+        }
+
+        private void notifyIcon1_DoubleClick(object sender, EventArgs e)
+        {
+            Show();
+            this.WindowState = FormWindowState.Normal;           
+            notifyIcon1.Visible = false;
         }
     }
 
