@@ -1,10 +1,22 @@
 pipeline {
     agent {docker 'didstopia/msbuild'}
+    environment {
+        BRANCH = ""
+    }
     stages {
-        stage('Git') {
+        stage('Pull latest commit') {
             steps {
-                echo "${params.Configuration}"
-                git 'https://github.com/daftkid/disk_cleaner.git'
+                script {
+                    if (params.Configuration == 'Release') {
+                        BRANCH = 'master'
+                    } else
+                    {
+                        BRANCH = 'dev'
+                    }
+                }
+                echo "Branch is ${BRANCH}"
+
+                git branch: BRANCH, url: 'https://github.com/daftkid/disk_cleaner.git'
             }
         }
         stage('Build') {
