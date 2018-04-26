@@ -20,7 +20,7 @@ namespace disk_cleaner
             foreach (string file in files.Keys)
             {
                 double size = (double)Convert.ToInt32(files[file]);
-                dataGridView1.Rows.Add(true, file, ConvertFromBytes(size));
+                dgv_results.Rows.Add(true, file, ConvertFromBytes(size));
                 count_of_files++;
                 sum_size += Convert.ToInt32(files[file]);
             }
@@ -48,24 +48,24 @@ namespace disk_cleaner
         // handler for clicking on Select all checkbox
         private void cb_select_all_CheckedChanged(object sender, EventArgs e)
         {
-            dataGridView1.CellValueChanged -= dataGridView1_CellValueChanged;
-            foreach (DataGridViewRow row in dataGridView1.Rows)
+            dgv_results.CellValueChanged -= gv_results1_CellValueChanged;
+            foreach (DataGridViewRow row in dgv_results.Rows)
             {
                 row.Cells["Check"].Value = cb_select_all.Checked;
             }
-            dataGridView1.CellValueChanged += dataGridView1_CellValueChanged;
+            dgv_results.CellValueChanged += gv_results1_CellValueChanged;
 
             printSizesOnLabels();
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void gv_results1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            dataGridView1.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            dgv_results.CommitEdit(DataGridViewDataErrorContexts.Commit);
         }
 
-        private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        private void gv_results1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            dataGridView1_CellContentClick(sender, e);
+            gv_results1_CellContentClick(sender, e);
             printSizesOnLabels();
         }
 
@@ -80,7 +80,7 @@ namespace disk_cleaner
 
         private void btn_remove_Click(object sender, EventArgs e)
         {
-            foreach (DataGridViewRow row in dataGridView1.Rows)
+            foreach (DataGridViewRow row in dgv_results.Rows)
             {
                 if (Convert.ToBoolean(row.Cells["Check"].Value))
                 {
@@ -110,7 +110,7 @@ namespace disk_cleaner
         {
             int sum_size = 0;
             int files_count = 0;
-            foreach (DataGridViewRow row in dataGridView1.Rows)
+            foreach (DataGridViewRow row in dgv_results.Rows)
             {
                 if (Convert.ToBoolean(row.Cells["Check"].Value))
                 {

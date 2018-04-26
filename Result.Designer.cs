@@ -33,7 +33,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.l_nothing_found = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgv_results = new System.Windows.Forms.DataGridView();
             this.Check = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.File_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.File_size = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,7 +47,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_results)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -71,7 +71,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.l_nothing_found);
-            this.groupBox1.Controls.Add(this.dataGridView1);
+            this.groupBox1.Controls.Add(this.dgv_results);
             this.groupBox1.Location = new System.Drawing.Point(27, 108);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(463, 199);
@@ -89,25 +89,25 @@
             this.l_nothing_found.Text = "NOTHING FOUND";
             this.l_nothing_found.Visible = false;
             // 
-            // dataGridView1
+            // dgv_results
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AllowUserToResizeRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgv_results.AllowUserToAddRows = false;
+            this.dgv_results.AllowUserToDeleteRows = false;
+            this.dgv_results.AllowUserToResizeRows = false;
+            this.dgv_results.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgv_results.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgv_results.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_results.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Check,
             this.File_Name,
             this.File_size});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 16);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(457, 180);
-            this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
+            this.dgv_results.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv_results.Location = new System.Drawing.Point(3, 16);
+            this.dgv_results.Name = "dgv_results";
+            this.dgv_results.Size = new System.Drawing.Size(457, 180);
+            this.dgv_results.TabIndex = 0;
+            this.dgv_results.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gv_results1_CellContentClick);
+            this.dgv_results.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.gv_results1_CellValueChanged);
             // 
             // Check
             // 
@@ -244,7 +244,7 @@
             this.Text = "Disk Cleaner Results";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_results)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -255,7 +255,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgv_results;
         private System.Windows.Forms.CheckBox cb_select_all;
         private System.Windows.Forms.Button btn_remove;
         private System.Windows.Forms.Button btn_back;

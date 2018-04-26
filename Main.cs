@@ -23,6 +23,8 @@ namespace disk_cleaner
         // provide common way for reading and writing configs
         public Configs config = new Configs();
 
+        public bool is_settings = false;
+
         // object for Logging form
         private Scan_log scan_log;
 
@@ -123,18 +125,27 @@ namespace disk_cleaner
             if (GlobalVars.save_logs)
             {
                 WriteLogsToFile(log, GlobalVars.log_path);
-            }           
+            }
+
+            Cursor.Current = Cursors.Default;
         }
         // Action on button 'Settings' click 
         private void btn_settings_Click(object sender, EventArgs e)
         {
+
+            if (is_settings)
+            {
+                return;
+            }
             Settings settings_form = new Settings
             {
                 MainForm = this
             };
+            is_settings = true;
             settings_form.Show();
 
             OutputConfigs();
+
 
             // Hide main form and waiting for actions from user
             this.Hide();
@@ -218,6 +229,10 @@ namespace disk_cleaner
                     {
                         log.Add(string.Format("{0:HH:mm:ss}", DateTime.Now) + " Filter: [" + filter + "] Error: " + e.Message);
                     }
+                    catch (Exception e)
+                    {
+                        log.Add(string.Format("{0:HH:mm:ss}", DateTime.Now) + " Filter: [" + filter + "] Error: " + e.Message);
+                    }
                 }
             }
 
@@ -294,6 +309,10 @@ namespace disk_cleaner
             }
             catch (UnauthorizedAccessException)
             {
+            }
+            catch (Exception e)
+            {
+                log.Add(string.Format("{0:HH:mm:ss}", DateTime.Now) + "Error: " + e.Message);
             }
 
             return result;
@@ -452,6 +471,11 @@ namespace disk_cleaner
             Show();
             this.WindowState = FormWindowState.Normal;           
             notifyIcon1.Visible = false;
+        }
+
+        private void docsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/daftkid/disk_cleaner/blob/master/docs/manual.docx?raw=true");
         }
     }
 
