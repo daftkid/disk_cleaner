@@ -42,19 +42,21 @@
             this.label3 = new System.Windows.Forms.Label();
             this.cb_show_log = new System.Windows.Forms.CheckBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tb_auto_names = new System.Windows.Forms.TextBox();
+            this.tb_auto_ext = new System.Windows.Forms.TextBox();
             this.dgv_disks_list = new System.Windows.Forms.DataGridView();
             this.check_disk = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.disk = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.total_size = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.free_space = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.threshold = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button6 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.cb_time_measure = new System.Windows.Forms.ComboBox();
             this.nud_time_step = new System.Windows.Forms.NumericUpDown();
-            this.cb_trigger_on_low_disk_space = new System.Windows.Forms.CheckBox();
             this.cb_start_in_bg = new System.Windows.Forms.CheckBox();
             this.btn_apply = new System.Windows.Forms.Button();
             this.btn_discard = new System.Windows.Forms.Button();
@@ -195,29 +197,47 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 503);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(404, 22);
-            this.statusStrip1.TabIndex = 5;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.tb_auto_names);
+            this.groupBox3.Controls.Add(this.tb_auto_ext);
             this.groupBox3.Controls.Add(this.dgv_disks_list);
-            this.groupBox3.Controls.Add(this.button6);
+            this.groupBox3.Controls.Add(this.label6);
+            this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.cb_time_measure);
             this.groupBox3.Controls.Add(this.nud_time_step);
-            this.groupBox3.Controls.Add(this.cb_trigger_on_low_disk_space);
             this.groupBox3.Controls.Add(this.cb_start_in_bg);
             this.groupBox3.Location = new System.Drawing.Point(12, 241);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(379, 220);
+            this.groupBox3.Size = new System.Drawing.Size(379, 245);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Automation";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 48);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(310, 13);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Please specify extensions and files\' names for automatic deletion";
+            // 
+            // tb_auto_names
+            // 
+            this.tb_auto_names.Location = new System.Drawing.Point(91, 96);
+            this.tb_auto_names.Name = "tb_auto_names";
+            this.tb_auto_names.Size = new System.Drawing.Size(272, 20);
+            this.tb_auto_names.TabIndex = 11;
+            // 
+            // tb_auto_ext
+            // 
+            this.tb_auto_ext.Location = new System.Drawing.Point(91, 67);
+            this.tb_auto_ext.Name = "tb_auto_ext";
+            this.tb_auto_ext.Size = new System.Drawing.Size(272, 20);
+            this.tb_auto_ext.TabIndex = 10;
             // 
             // dgv_disks_list
             // 
@@ -231,11 +251,12 @@
             this.total_size,
             this.free_space,
             this.threshold});
-            this.dgv_disks_list.Enabled = false;
-            this.dgv_disks_list.Location = new System.Drawing.Point(9, 101);
+            this.dgv_disks_list.Location = new System.Drawing.Point(9, 141);
             this.dgv_disks_list.Name = "dgv_disks_list";
-            this.dgv_disks_list.Size = new System.Drawing.Size(364, 113);
-            this.dgv_disks_list.TabIndex = 17;
+            this.dgv_disks_list.Size = new System.Drawing.Size(354, 96);
+            this.dgv_disks_list.TabIndex = 12;
+            this.dgv_disks_list.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_disks_list_CellContentClick);
+            this.dgv_disks_list.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_disks_list_CellValueChanged);
             // 
             // check_disk
             // 
@@ -245,11 +266,10 @@
             // 
             // disk
             // 
-            this.disk.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.disk.HeaderText = "Disk";
             this.disk.Name = "disk";
             this.disk.ReadOnly = true;
-            this.disk.Width = 53;
+            this.disk.Width = 45;
             // 
             // total_size
             // 
@@ -270,19 +290,28 @@
             this.threshold.HeaderText = "Threshold (%)";
             this.threshold.Name = "threshold";
             // 
-            // button6
+            // label6
             // 
-            this.button6.Location = new System.Drawing.Point(342, 22);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(21, 20);
-            this.button6.TabIndex = 10;
-            this.button6.Text = "?4";
-            this.button6.UseVisualStyleBackColor = true;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 96);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(60, 13);
+            this.label6.TabIndex = 8;
+            this.label6.Text = "File names:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 70);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(79, 13);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "File extensions:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 77);
+            this.label5.Location = new System.Drawing.Point(6, 120);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(73, 13);
             this.label5.TabIndex = 8;
@@ -299,7 +328,7 @@
             "Weeks"});
             this.cb_time_measure.Location = new System.Drawing.Point(269, 22);
             this.cb_time_measure.Name = "cb_time_measure";
-            this.cb_time_measure.Size = new System.Drawing.Size(67, 21);
+            this.cb_time_measure.Size = new System.Drawing.Size(94, 21);
             this.cb_time_measure.TabIndex = 9;
             this.cb_time_measure.Text = "Minutes";
             this.cb_time_measure.TextChanged += new System.EventHandler(this.tb_file_exts_TextChanged);
@@ -308,22 +337,25 @@
             // 
             this.nud_time_step.Enabled = false;
             this.nud_time_step.Location = new System.Drawing.Point(193, 23);
+            this.nud_time_step.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.nud_time_step.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nud_time_step.Name = "nud_time_step";
             this.nud_time_step.Size = new System.Drawing.Size(60, 20);
             this.nud_time_step.TabIndex = 8;
+            this.nud_time_step.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.nud_time_step.ValueChanged += new System.EventHandler(this.tb_file_exts_TextChanged);
-            // 
-            // cb_trigger_on_low_disk_space
-            // 
-            this.cb_trigger_on_low_disk_space.AutoSize = true;
-            this.cb_trigger_on_low_disk_space.Enabled = false;
-            this.cb_trigger_on_low_disk_space.Location = new System.Drawing.Point(9, 53);
-            this.cb_trigger_on_low_disk_space.Name = "cb_trigger_on_low_disk_space";
-            this.cb_trigger_on_low_disk_space.Size = new System.Drawing.Size(149, 17);
-            this.cb_trigger_on_low_disk_space.TabIndex = 2;
-            this.cb_trigger_on_low_disk_space.Text = "Free disk space less than:";
-            this.cb_trigger_on_low_disk_space.UseVisualStyleBackColor = true;
-            this.cb_trigger_on_low_disk_space.CheckedChanged += new System.EventHandler(this.cb_trigger_on_low_disk_space_CheckedChanged);
             // 
             // cb_start_in_bg
             // 
@@ -338,30 +370,30 @@
             // 
             // btn_apply
             // 
-            this.btn_apply.Location = new System.Drawing.Point(28, 467);
+            this.btn_apply.Location = new System.Drawing.Point(28, 492);
             this.btn_apply.Name = "btn_apply";
             this.btn_apply.Size = new System.Drawing.Size(75, 23);
-            this.btn_apply.TabIndex = 11;
+            this.btn_apply.TabIndex = 13;
             this.btn_apply.Text = "Apply";
             this.btn_apply.UseVisualStyleBackColor = true;
             this.btn_apply.Click += new System.EventHandler(this.btn_apply_Click);
             // 
             // btn_discard
             // 
-            this.btn_discard.Location = new System.Drawing.Point(109, 467);
+            this.btn_discard.Location = new System.Drawing.Point(109, 492);
             this.btn_discard.Name = "btn_discard";
             this.btn_discard.Size = new System.Drawing.Size(75, 23);
-            this.btn_discard.TabIndex = 12;
+            this.btn_discard.TabIndex = 14;
             this.btn_discard.Text = "Discard";
             this.btn_discard.UseVisualStyleBackColor = true;
             this.btn_discard.Click += new System.EventHandler(this.btn_discard_Click);
             // 
             // btn_ok
             // 
-            this.btn_ok.Location = new System.Drawing.Point(302, 467);
+            this.btn_ok.Location = new System.Drawing.Point(302, 492);
             this.btn_ok.Name = "btn_ok";
             this.btn_ok.Size = new System.Drawing.Size(75, 23);
-            this.btn_ok.TabIndex = 14;
+            this.btn_ok.TabIndex = 15;
             this.btn_ok.Text = "OK";
             this.btn_ok.UseVisualStyleBackColor = true;
             this.btn_ok.Click += new System.EventHandler(this.btn_ok_Click);
@@ -375,7 +407,6 @@
             this.Controls.Add(this.btn_discard);
             this.Controls.Add(this.btn_apply);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -393,7 +424,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_disks_list)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_time_step)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -412,23 +442,25 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox cb_show_log;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cb_time_measure;
         private System.Windows.Forms.NumericUpDown nud_time_step;
-        private System.Windows.Forms.CheckBox cb_trigger_on_low_disk_space;
         private System.Windows.Forms.CheckBox cb_start_in_bg;
-        private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button btn_apply;
         private System.Windows.Forms.Button btn_discard;
         private System.Windows.Forms.Button btn_ok;
         private System.Windows.Forms.DataGridView dgv_disks_list;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox tb_auto_names;
+        private System.Windows.Forms.TextBox tb_auto_ext;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridViewCheckBoxColumn check_disk;
         private System.Windows.Forms.DataGridViewTextBoxColumn disk;
         private System.Windows.Forms.DataGridViewTextBoxColumn total_size;
         private System.Windows.Forms.DataGridViewTextBoxColumn free_space;
         private System.Windows.Forms.DataGridViewTextBoxColumn threshold;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
     }
 }

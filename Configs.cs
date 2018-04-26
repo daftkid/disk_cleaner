@@ -1,6 +1,7 @@
 ﻿using System;
 using Ini;
 using System.Windows.Forms;
+using System.Collections;
 
 namespace configs
 {
@@ -21,8 +22,12 @@ namespace configs
         public static int run_number;
         public static bool start_in_bg;
         public static bool trigger_on_disk_space;
-        public static int time_step;
+        public static int time_step = 1;
         public static string time_measure;
+        public static string file_names_auto;
+        public static string file_exts_auto;
+        public static Hashtable ht;
+
     }
 
     public class Configs
@@ -35,7 +40,7 @@ namespace configs
             ini = new IniFile(GlobalVars.INI_PATH);
         }
 
-        public void LoadConfigs()
+        public bool LoadConfigs()
         {
             try
             {
@@ -51,11 +56,15 @@ namespace configs
                 GlobalVars.start_in_bg = Convert.ToBoolean(ini.IniReadValue("Automation", "StartInBG"));
                 GlobalVars.time_step = Convert.ToInt32(ini.IniReadValue("Automation", "TimeStep"));
                 GlobalVars.time_measure = ini.IniReadValue("Automation", "TimeMeasure");
+                GlobalVars.file_names_auto = ini.IniReadValue("Automation", "AutoFileNames");
+                GlobalVars.file_exts_auto = ini.IniReadValue("Automation", "AutoFileExtensions");
+
+                return true;
             }
             catch
             {
-                MessageBox.Show("Can not find ini from " + GlobalVars.INI_PATH + "file! File will be written after first run", "INI loading failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
+                MessageBox.Show("Can not find ini from " + GlobalVars.INI_PATH + "file! File will be written after first run.\n\nPlease provide values!", "INI loading failed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return false;
             }
         }
     }
