@@ -15,6 +15,7 @@ namespace disk_cleaner
         public banner()
         {
             InitializeComponent();
+            Cursor.Current = Cursors.WaitCursor;
         }
     }
 }

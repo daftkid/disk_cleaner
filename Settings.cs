@@ -17,7 +17,6 @@ namespace disk_cleaner
             OutputConfigs();
 
             btn_apply.Enabled = false;
-            btn_discard.Enabled = false;
         }
 
         // write new values to INI file
@@ -129,6 +128,7 @@ namespace disk_cleaner
             MainForm.Show();
             this.Hide();
             MainForm.SchedulerExecute();
+            MainForm.is_settings = false;
         }
 
         private void cb_trigger_on_low_disk_space_CheckedChanged(object sender, EventArgs e)
@@ -151,32 +151,39 @@ namespace disk_cleaner
             if (cb_start_in_bg.Checked)
             {
                 // Get all available disk drives in system
-                foreach (var drive in DriveInfo.GetDrives())
+                try
                 {
-                    double freeSpace = drive.TotalFreeSpace;
-                    double totalSpace = drive.TotalSize / 1024.0 / 1024.0 / 1024.0;
-                    double percentFree = (freeSpace / drive.TotalSize) * 100;
-
-                    string threshold = "";
-
-                    try
+                    foreach (var drive in DriveInfo.GetDrives())
                     {
-                        threshold = MainForm.config.ini.IniReadValue("Disk", drive.Name);
-                    }
-                    catch
-                    {
+                        double freeSpace = drive.TotalFreeSpace;
+                        double totalSpace = drive.TotalSize / 1024.0 / 1024.0 / 1024.0;
+                        double percentFree = (freeSpace / drive.TotalSize) * 100;
 
-                    }
-                   
+                        string threshold = "";
 
-                    bool check = false;
+                        try
+                        {
+                            threshold = MainForm.config.ini.IniReadValue("Disk", drive.Name);
+                        }
+                        catch
+                        {
 
-                    if (threshold.Length != 0)
-                    {
-                        check = true;
-                    }
+                        }
 
-                    dgv_disks_list.Rows.Add(check, drive, totalSpace.ToString("0.00") + " GiB", percentFree.ToString("00.00") + "%", threshold);
+
+                        bool check = false;
+
+                        if (threshold.Length != 0)
+                        {
+                            check = true;
+                        }
+
+                        dgv_disks_list.Rows.Add(check, drive, totalSpace.ToString("0.00") + " GiB", percentFree.ToString("00.00") + "%", threshold);
+                    }                  
+                }
+                catch (Exception err)
+                {
+
                 }
             }
         }

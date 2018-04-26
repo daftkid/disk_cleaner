@@ -12,10 +12,10 @@ namespace disk_cleaner
 
         public void OutputLog(List<string> text)
         {
-            richTextBox1.Clear();
+            logBox.Clear();
             foreach (string line in text)
             {
-                richTextBox1.AppendText(line + "\r\n");
+                logBox.AppendText(line + "\r\n");
             }
         }
     }
